@@ -576,7 +576,7 @@ GameObject:
   - component: {fileID: 419495768}
   - component: {fileID: 419495769}
   - component: {fileID: 419495771}
-  - component: {fileID: 419495770}
+  - component: {fileID: 419495772}
   m_Layer: 0
   m_Name: spr_Syrup_Background (1)
   m_TagString: Untagged
@@ -646,7 +646,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2071661637
   m_SortingLayer: 1
-  m_SortingOrder: 1
+  m_SortingOrder: 49
   m_MaskInteraction: 0
   m_Sprite: {fileID: -1109690826, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -658,22 +658,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &419495770
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 419495767}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d118d839fb9034996958029453597e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::bottle_Select
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  animationSpeed: 12
 --- !u!61 &419495771
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -720,6 +704,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.1, y: 0.35}
   m_EdgeRadius: 0
+--- !u!114 &419495772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419495767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
+  data: {fileID: 0}
+  shakerTopPosition: {fileID: 538420245}
+  moveSpeed: 100
+  tiltAngle: 100
+  tiltDuration: 0.3
+  pourDuration: 0.5
+  hoverLift: 0.2
+  hoverScale: 1.08
+  hoverSortingOrder: 100
+  hoverSpeed: 12
 --- !u!1 &458384620
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,7 +737,7 @@ GameObject:
   - component: {fileID: 458384621}
   - component: {fileID: 458384622}
   - component: {fileID: 458384624}
-  - component: {fileID: 458384623}
+  - component: {fileID: 458384625}
   m_Layer: 0
   m_Name: spr_Syrup_Background
   m_TagString: Untagged
@@ -801,7 +807,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2071661637
   m_SortingLayer: 1
-  m_SortingOrder: 1
+  m_SortingOrder: 49
   m_MaskInteraction: 0
   m_Sprite: {fileID: -1109690826, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -813,22 +819,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &458384623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 458384620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d118d839fb9034996958029453597e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::bottle_Select
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  animationSpeed: 12
 --- !u!61 &458384624
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -875,6 +865,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.1, y: 0.35}
   m_EdgeRadius: 0
+--- !u!114 &458384625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458384620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
+  data: {fileID: 0}
+  shakerTopPosition: {fileID: 538420245}
+  moveSpeed: 100
+  tiltAngle: 100
+  tiltDuration: 0.3
+  pourDuration: 0.5
+  hoverLift: 0.2
+  hoverScale: 1.08
+  hoverSortingOrder: 100
+  hoverSpeed: 12
 --- !u!1 &492418283
 GameObject:
   m_ObjectHideFlags: 0
@@ -886,7 +898,7 @@ GameObject:
   - component: {fileID: 492418284}
   - component: {fileID: 492418285}
   - component: {fileID: 492418287}
-  - component: {fileID: 492418286}
+  - component: {fileID: 492418288}
   m_Layer: 0
   m_Name: spr_Syrup17
   m_TagString: Untagged
@@ -956,7 +968,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2071661637
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 50
   m_MaskInteraction: 0
   m_Sprite: {fileID: 970583144, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -968,22 +980,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &492418286
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 492418283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d118d839fb9034996958029453597e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::bottle_Select
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  animationSpeed: 12
 --- !u!61 &492418287
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1030,6 +1026,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.1, y: 0.34}
   m_EdgeRadius: 0
+--- !u!114 &492418288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492418283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
+  data: {fileID: 0}
+  shakerTopPosition: {fileID: 538420245}
+  moveSpeed: 100
+  tiltAngle: 100
+  tiltDuration: 0.3
+  pourDuration: 0.5
+  hoverLift: 0.2
+  hoverScale: 1.08
+  hoverSortingOrder: 100
+  hoverSpeed: 12
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1166,6 +1184,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &538420244
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 538420245}
+  m_Layer: 0
+  m_Name: shakerTopPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &538420245
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538420244}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.45, y: 6.174, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2134406711}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &619394800
 GameObject:
@@ -1341,7 +1390,9 @@ GameObject:
   - component: {fileID: 713402752}
   - component: {fileID: 713402753}
   - component: {fileID: 713402755}
-  - component: {fileID: 713402754}
+  - component: {fileID: 713402756}
+  - component: {fileID: 713402757}
+  - component: {fileID: 713402758}
   m_Layer: 0
   m_Name: spr_Syrup4
   m_TagString: Untagged
@@ -1411,7 +1462,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2071661637
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 50
   m_MaskInteraction: 0
   m_Sprite: {fileID: -347842809, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1423,22 +1474,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &713402754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 713402751}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d118d839fb9034996958029453597e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::bottle_Select
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  animationSpeed: 12
 --- !u!61 &713402755
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1485,6 +1520,82 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.1, y: 0.34}
   m_EdgeRadius: 0
+--- !u!114 &713402756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713402751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
+  data: {fileID: 11400000, guid: 310bcb5ed518240439b74783c93ea520, type: 2}
+  shakerTopPosition: {fileID: 538420245}
+  moveSpeed: 100
+  tiltAngle: 100
+  tiltDuration: 0.3
+  pourDuration: 0.5
+  hoverLift: 0.2
+  hoverScale: 1.08
+  hoverSortingOrder: 100
+  hoverSpeed: 12
+--- !u!114 &713402757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713402751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0b83e1ea191d494083512a3dfc5b3d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
+  liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
+  highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  spoutLocalOffset: {x: 0, y: 0.15}
+  flowThreshold: 50
+  maxFlowAngle: 100
+  sizeMultiplier: 2.5
+  minDropSize: 0.05
+  maxDropSize: 0.15
+  minSpawnInterval: 0.02
+  maxSpawnInterval: 0.08
+  particleSpeed: 2
+  particleLifetime: 1.5
+  gravity: 5
+  trailLength: 8
+  trailSizeRatio: 0.7
+--- !u!114 &713402758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713402751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0b83e1ea191d494083512a3dfc5b3d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
+  liquidColor: {r: 0, g: 0, b: 0, a: 1}
+  highlightColor: {r: 0, g: 0, b: 0, a: 0.7}
+  spoutLocalOffset: {x: 0, y: 0.5}
+  flowThreshold: 30
+  maxFlowAngle: 90
+  sizeMultiplier: 2.5
+  minDropSize: 0.05
+  maxDropSize: 0.15
+  minSpawnInterval: 0.02
+  maxSpawnInterval: 0.08
+  particleSpeed: 2
+  particleLifetime: 1.5
+  gravity: 5
+  trailLength: 8
+  trailSizeRatio: 0.7
 --- !u!1 &806347241
 GameObject:
   m_ObjectHideFlags: 0
@@ -1574,7 +1685,7 @@ GameObject:
   - component: {fileID: 815546507}
   - component: {fileID: 815546508}
   - component: {fileID: 815546510}
-  - component: {fileID: 815546509}
+  - component: {fileID: 815546511}
   m_Layer: 0
   m_Name: spr_Syrup15
   m_TagString: Untagged
@@ -1644,7 +1755,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2071661637
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 50
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1209745308, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1656,22 +1767,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &815546509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 815546506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d118d839fb9034996958029453597e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::bottle_Select
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  animationSpeed: 12
 --- !u!61 &815546510
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1718,6 +1813,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.08, y: 0.21}
   m_EdgeRadius: 0
+--- !u!114 &815546511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815546506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
+  data: {fileID: 0}
+  shakerTopPosition: {fileID: 538420245}
+  moveSpeed: 100
+  tiltAngle: 100
+  tiltDuration: 0.3
+  pourDuration: 0.5
+  hoverLift: 0.2
+  hoverScale: 1.08
+  hoverSortingOrder: 100
+  hoverSpeed: 12
 --- !u!1 &851623106
 GameObject:
   m_ObjectHideFlags: 0
@@ -1729,7 +1846,9 @@ GameObject:
   - component: {fileID: 851623107}
   - component: {fileID: 851623108}
   - component: {fileID: 851623110}
-  - component: {fileID: 851623109}
+  - component: {fileID: 851623111}
+  - component: {fileID: 851623112}
+  - component: {fileID: 851623113}
   m_Layer: 0
   m_Name: spr_Syrup5
   m_TagString: Untagged
@@ -1799,7 +1918,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2071661637
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 50
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1755390623, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1811,22 +1930,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &851623109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 851623106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d118d839fb9034996958029453597e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::bottle_Select
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  animationSpeed: 12
 --- !u!61 &851623110
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1873,6 +1976,82 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.1, y: 0.15}
   m_EdgeRadius: 0
+--- !u!114 &851623111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851623106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
+  data: {fileID: 11400000, guid: f21ac185a662d7e45bba1a34917de9c0, type: 2}
+  shakerTopPosition: {fileID: 538420245}
+  moveSpeed: 100
+  tiltAngle: 100
+  tiltDuration: 0.3
+  pourDuration: 0.5
+  hoverLift: 0.2
+  hoverScale: 1.08
+  hoverSortingOrder: 100
+  hoverSpeed: 12
+--- !u!114 &851623112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851623106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0b83e1ea191d494083512a3dfc5b3d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
+  liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
+  highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  spoutLocalOffset: {x: 0, y: 0.07}
+  flowThreshold: 50
+  maxFlowAngle: 100
+  sizeMultiplier: 2.5
+  minDropSize: 0.05
+  maxDropSize: 0.15
+  minSpawnInterval: 0.02
+  maxSpawnInterval: 0.08
+  particleSpeed: 2
+  particleLifetime: 1.5
+  gravity: 5
+  trailLength: 8
+  trailSizeRatio: 0.7
+--- !u!114 &851623113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851623106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0b83e1ea191d494083512a3dfc5b3d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
+  liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
+  highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  spoutLocalOffset: {x: 0, y: 0.5}
+  flowThreshold: 30
+  maxFlowAngle: 90
+  sizeMultiplier: 2.5
+  minDropSize: 0.05
+  maxDropSize: 0.15
+  minSpawnInterval: 0.02
+  maxSpawnInterval: 0.08
+  particleSpeed: 2
+  particleLifetime: 1.5
+  gravity: 5
+  trailLength: 8
+  trailSizeRatio: 0.7
 --- !u!1 &868166735
 GameObject:
   m_ObjectHideFlags: 0
@@ -1884,7 +2063,7 @@ GameObject:
   - component: {fileID: 868166736}
   - component: {fileID: 868166737}
   - component: {fileID: 868166739}
-  - component: {fileID: 868166738}
+  - component: {fileID: 868166740}
   m_Layer: 0
   m_Name: spr_syrup16
   m_TagString: Untagged
@@ -1954,7 +2133,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2071661637
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 50
   m_MaskInteraction: 0
   m_Sprite: {fileID: -192987144, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1966,22 +2145,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &868166738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 868166735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d118d839fb9034996958029453597e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::bottle_Select
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  animationSpeed: 12
 --- !u!61 &868166739
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2028,6 +2191,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.08, y: 0.24}
   m_EdgeRadius: 0
+--- !u!114 &868166740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 868166735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
+  data: {fileID: 0}
+  shakerTopPosition: {fileID: 538420245}
+  moveSpeed: 100
+  tiltAngle: 100
+  tiltDuration: 0.3
+  pourDuration: 0.5
+  hoverLift: 0.2
+  hoverScale: 1.08
+  hoverSortingOrder: 100
+  hoverSpeed: 12
 --- !u!1 &868624549
 GameObject:
   m_ObjectHideFlags: 0
@@ -2130,7 +2315,7 @@ GameObject:
   - component: {fileID: 878104788}
   - component: {fileID: 878104789}
   - component: {fileID: 878104791}
-  - component: {fileID: 878104790}
+  - component: {fileID: 878104792}
   m_Layer: 0
   m_Name: spr_Syrup_Background (4)
   m_TagString: Untagged
@@ -2200,7 +2385,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2071661637
   m_SortingLayer: 1
-  m_SortingOrder: 1
+  m_SortingOrder: 49
   m_MaskInteraction: 0
   m_Sprite: {fileID: -1109690826, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2212,22 +2397,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &878104790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 878104787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d118d839fb9034996958029453597e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::bottle_Select
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  animationSpeed: 12
 --- !u!61 &878104791
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2274,6 +2443,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.1, y: 0.35}
   m_EdgeRadius: 0
+--- !u!114 &878104792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 878104787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
+  data: {fileID: 0}
+  shakerTopPosition: {fileID: 538420245}
+  moveSpeed: 100
+  tiltAngle: 100
+  tiltDuration: 0.3
+  pourDuration: 0.5
+  hoverLift: 0.2
+  hoverScale: 1.08
+  hoverSortingOrder: 100
+  hoverSpeed: 12
 --- !u!1 &896771799
 GameObject:
   m_ObjectHideFlags: 0
@@ -2285,7 +2476,7 @@ GameObject:
   - component: {fileID: 896771800}
   - component: {fileID: 896771801}
   - component: {fileID: 896771803}
-  - component: {fileID: 896771802}
+  - component: {fileID: 896771804}
   m_Layer: 0
   m_Name: spr_Syrup_Background (3)
   m_TagString: Untagged
@@ -2355,7 +2546,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2071661637
   m_SortingLayer: 1
-  m_SortingOrder: 1
+  m_SortingOrder: 49
   m_MaskInteraction: 0
   m_Sprite: {fileID: -1109690826, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2367,22 +2558,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &896771802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 896771799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d118d839fb9034996958029453597e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::bottle_Select
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  animationSpeed: 12
 --- !u!61 &896771803
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2429,6 +2604,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.1, y: 0.35}
   m_EdgeRadius: 0
+--- !u!114 &896771804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896771799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
+  data: {fileID: 0}
+  shakerTopPosition: {fileID: 538420245}
+  moveSpeed: 100
+  tiltAngle: 100
+  tiltDuration: 0.3
+  pourDuration: 0.5
+  hoverLift: 0.2
+  hoverScale: 1.08
+  hoverSortingOrder: 100
+  hoverSpeed: 12
 --- !u!1 &975508895
 GameObject:
   m_ObjectHideFlags: 0
@@ -2440,7 +2637,7 @@ GameObject:
   - component: {fileID: 975508896}
   - component: {fileID: 975508897}
   - component: {fileID: 975508899}
-  - component: {fileID: 975508898}
+  - component: {fileID: 975508900}
   m_Layer: 0
   m_Name: spr_Syrup12
   m_TagString: Untagged
@@ -2510,7 +2707,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2071661637
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 50
   m_MaskInteraction: 0
   m_Sprite: {fileID: -310538547, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2522,22 +2719,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &975508898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 975508895}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d118d839fb9034996958029453597e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::bottle_Select
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  animationSpeed: 12
 --- !u!61 &975508899
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2584,6 +2765,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.07, y: 0.13}
   m_EdgeRadius: 0
+--- !u!114 &975508900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 975508895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
+  data: {fileID: 0}
+  shakerTopPosition: {fileID: 538420245}
+  moveSpeed: 100
+  tiltAngle: 100
+  tiltDuration: 0.3
+  pourDuration: 0.5
+  hoverLift: 0.2
+  hoverScale: 1.08
+  hoverSortingOrder: 100
+  hoverSpeed: 12
 --- !u!1 &1040846103
 GameObject:
   m_ObjectHideFlags: 0
@@ -2764,7 +2967,7 @@ GameObject:
   - component: {fileID: 1275787678}
   - component: {fileID: 1275787679}
   - component: {fileID: 1275787681}
-  - component: {fileID: 1275787680}
+  - component: {fileID: 1275787682}
   m_Layer: 0
   m_Name: spr_Syrup10
   m_TagString: Untagged
@@ -2834,7 +3037,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2071661637
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 50
   m_MaskInteraction: 0
   m_Sprite: {fileID: 835572700, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2846,22 +3049,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &1275787680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1275787677}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d118d839fb9034996958029453597e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::bottle_Select
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  animationSpeed: 12
 --- !u!61 &1275787681
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2908,6 +3095,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.1, y: 0.23}
   m_EdgeRadius: 0
+--- !u!114 &1275787682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275787677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
+  data: {fileID: 0}
+  shakerTopPosition: {fileID: 538420245}
+  moveSpeed: 100
+  tiltAngle: 100
+  tiltDuration: 0.3
+  pourDuration: 0.5
+  hoverLift: 0.2
+  hoverScale: 1.08
+  hoverSortingOrder: 100
+  hoverSpeed: 12
 --- !u!1 &1331376098
 GameObject:
   m_ObjectHideFlags: 0
@@ -2972,7 +3181,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2071661637
   m_SortingLayer: 1
-  m_SortingOrder: 3
+  m_SortingOrder: 100
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.7529412}
@@ -3010,7 +3219,7 @@ GameObject:
   - component: {fileID: 1455316975}
   - component: {fileID: 1455316976}
   - component: {fileID: 1455316978}
-  - component: {fileID: 1455316977}
+  - component: {fileID: 1455316979}
   m_Layer: 0
   m_Name: spr_Syrup14
   m_TagString: Untagged
@@ -3080,7 +3289,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2071661637
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 50
   m_MaskInteraction: 0
   m_Sprite: {fileID: -1861116964, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3092,22 +3301,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &1455316977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1455316974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d118d839fb9034996958029453597e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::bottle_Select
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  animationSpeed: 12
 --- !u!61 &1455316978
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3154,6 +3347,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.07, y: 0.15}
   m_EdgeRadius: 0
+--- !u!114 &1455316979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455316974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
+  data: {fileID: 0}
+  shakerTopPosition: {fileID: 538420245}
+  moveSpeed: 100
+  tiltAngle: 100
+  tiltDuration: 0.3
+  pourDuration: 0.5
+  hoverLift: 0.2
+  hoverScale: 1.08
+  hoverSortingOrder: 100
+  hoverSpeed: 12
 --- !u!1 &1509009668
 GameObject:
   m_ObjectHideFlags: 0
@@ -3256,7 +3471,9 @@ GameObject:
   - component: {fileID: 1609121846}
   - component: {fileID: 1609121847}
   - component: {fileID: 1609121849}
-  - component: {fileID: 1609121848}
+  - component: {fileID: 1609121850}
+  - component: {fileID: 1609121851}
+  - component: {fileID: 1609121852}
   m_Layer: 0
   m_Name: spr_Syrup2
   m_TagString: Untagged
@@ -3326,7 +3543,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2071661637
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 50
   m_MaskInteraction: 0
   m_Sprite: {fileID: -1381369645, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3338,22 +3555,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &1609121848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1609121845}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d118d839fb9034996958029453597e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::bottle_Select
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  animationSpeed: 12
 --- !u!61 &1609121849
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3400,6 +3601,82 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.1, y: 0.34}
   m_EdgeRadius: 0
+--- !u!114 &1609121850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609121845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
+  data: {fileID: 11400000, guid: 3cec783819aafb046bc3afa5326ebf80, type: 2}
+  shakerTopPosition: {fileID: 538420245}
+  moveSpeed: 100
+  tiltAngle: 100
+  tiltDuration: 0.3
+  pourDuration: 0.5
+  hoverLift: 0.2
+  hoverScale: 1.08
+  hoverSortingOrder: 100
+  hoverSpeed: 12
+--- !u!114 &1609121851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609121845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0b83e1ea191d494083512a3dfc5b3d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
+  liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
+  highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  spoutLocalOffset: {x: 0, y: 0.15}
+  flowThreshold: 50
+  maxFlowAngle: 100
+  sizeMultiplier: 2.5
+  minDropSize: 0.05
+  maxDropSize: 0.15
+  minSpawnInterval: 0.02
+  maxSpawnInterval: 0.08
+  particleSpeed: 2
+  particleLifetime: 1.5
+  gravity: 5
+  trailLength: 8
+  trailSizeRatio: 0.7
+--- !u!114 &1609121852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609121845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0b83e1ea191d494083512a3dfc5b3d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
+  liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
+  highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  spoutLocalOffset: {x: 0, y: 0.5}
+  flowThreshold: 30
+  maxFlowAngle: 90
+  sizeMultiplier: 2.5
+  minDropSize: 0.05
+  maxDropSize: 0.15
+  minSpawnInterval: 0.02
+  maxSpawnInterval: 0.08
+  particleSpeed: 2
+  particleLifetime: 1.5
+  gravity: 5
+  trailLength: 8
+  trailSizeRatio: 0.7
 --- !u!1 &1619722614
 GameObject:
   m_ObjectHideFlags: 0
@@ -3411,7 +3688,7 @@ GameObject:
   - component: {fileID: 1619722615}
   - component: {fileID: 1619722616}
   - component: {fileID: 1619722618}
-  - component: {fileID: 1619722617}
+  - component: {fileID: 1619722619}
   m_Layer: 0
   m_Name: spr_Syrup_Background (2)
   m_TagString: Untagged
@@ -3481,7 +3758,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2071661637
   m_SortingLayer: 1
-  m_SortingOrder: 1
+  m_SortingOrder: 49
   m_MaskInteraction: 0
   m_Sprite: {fileID: -1109690826, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3493,22 +3770,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &1619722617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1619722614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d118d839fb9034996958029453597e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::bottle_Select
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  animationSpeed: 12
 --- !u!61 &1619722618
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3555,6 +3816,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.1, y: 0.35}
   m_EdgeRadius: 0
+--- !u!114 &1619722619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619722614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
+  data: {fileID: 0}
+  shakerTopPosition: {fileID: 538420245}
+  moveSpeed: 100
+  tiltAngle: 100
+  tiltDuration: 0.3
+  pourDuration: 0.5
+  hoverLift: 0.2
+  hoverScale: 1.08
+  hoverSortingOrder: 100
+  hoverSpeed: 12
 --- !u!1 &1661632227
 GameObject:
   m_ObjectHideFlags: 0
@@ -3566,7 +3849,7 @@ GameObject:
   - component: {fileID: 1661632228}
   - component: {fileID: 1661632229}
   - component: {fileID: 1661632231}
-  - component: {fileID: 1661632230}
+  - component: {fileID: 1661632232}
   m_Layer: 0
   m_Name: spr_Syrup6
   m_TagString: Untagged
@@ -3636,7 +3919,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2071661637
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 50
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1333033046, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3648,22 +3931,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &1661632230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1661632227}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d118d839fb9034996958029453597e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::bottle_Select
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  animationSpeed: 12
 --- !u!61 &1661632231
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3710,6 +3977,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.1, y: 0.15}
   m_EdgeRadius: 0
+--- !u!114 &1661632232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1661632227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
+  data: {fileID: 0}
+  shakerTopPosition: {fileID: 538420245}
+  moveSpeed: 100
+  tiltAngle: 100
+  tiltDuration: 0.3
+  pourDuration: 0.5
+  hoverLift: 0.2
+  hoverScale: 1.08
+  hoverSortingOrder: 100
+  hoverSpeed: 12
 --- !u!1 &1738374936
 GameObject:
   m_ObjectHideFlags: 0
@@ -3913,7 +4202,7 @@ GameObject:
   - component: {fileID: 1760528962}
   - component: {fileID: 1760528963}
   - component: {fileID: 1760528965}
-  - component: {fileID: 1760528964}
+  - component: {fileID: 1760528966}
   m_Layer: 0
   m_Name: spr_Syrup11
   m_TagString: Untagged
@@ -3983,7 +4272,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2071661637
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 50
   m_MaskInteraction: 0
   m_Sprite: {fileID: -1253402220, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3995,22 +4284,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &1760528964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1760528961}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d118d839fb9034996958029453597e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::bottle_Select
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  animationSpeed: 12
 --- !u!61 &1760528965
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4057,6 +4330,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.1, y: 0.33}
   m_EdgeRadius: 0
+--- !u!114 &1760528966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760528961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
+  data: {fileID: 0}
+  shakerTopPosition: {fileID: 538420245}
+  moveSpeed: 100
+  tiltAngle: 100
+  tiltDuration: 0.3
+  pourDuration: 0.5
+  hoverLift: 0.2
+  hoverScale: 1.08
+  hoverSortingOrder: 100
+  hoverSpeed: 12
 --- !u!1 &1787501257
 GameObject:
   m_ObjectHideFlags: 0
@@ -4068,7 +4363,7 @@ GameObject:
   - component: {fileID: 1787501258}
   - component: {fileID: 1787501259}
   - component: {fileID: 1787501261}
-  - component: {fileID: 1787501260}
+  - component: {fileID: 1787501262}
   m_Layer: 0
   m_Name: spr_Syrup13
   m_TagString: Untagged
@@ -4138,7 +4433,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2071661637
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 50
   m_MaskInteraction: 0
   m_Sprite: {fileID: 83186915, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4150,22 +4445,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &1787501260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1787501257}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d118d839fb9034996958029453597e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::bottle_Select
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  animationSpeed: 12
 --- !u!61 &1787501261
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4212,6 +4491,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.09, y: 0.26}
   m_EdgeRadius: 0
+--- !u!114 &1787501262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787501257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
+  data: {fileID: 0}
+  shakerTopPosition: {fileID: 538420245}
+  moveSpeed: 100
+  tiltAngle: 100
+  tiltDuration: 0.3
+  pourDuration: 0.5
+  hoverLift: 0.2
+  hoverScale: 1.08
+  hoverSortingOrder: 100
+  hoverSpeed: 12
 --- !u!1 &1800061146
 GameObject:
   m_ObjectHideFlags: 0
@@ -4256,7 +4557,7 @@ GameObject:
   - component: {fileID: 1828619306}
   - component: {fileID: 1828619307}
   - component: {fileID: 1828619309}
-  - component: {fileID: 1828619308}
+  - component: {fileID: 1828619310}
   m_Layer: 0
   m_Name: spr_Syrup8
   m_TagString: Untagged
@@ -4326,7 +4627,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2071661637
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 50
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1002543232, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4338,22 +4639,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &1828619308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1828619305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d118d839fb9034996958029453597e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::bottle_Select
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  animationSpeed: 12
 --- !u!61 &1828619309
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4400,6 +4685,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.09, y: 0.28}
   m_EdgeRadius: 0
+--- !u!114 &1828619310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828619305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
+  data: {fileID: 0}
+  shakerTopPosition: {fileID: 538420245}
+  moveSpeed: 100
+  tiltAngle: 100
+  tiltDuration: 0.3
+  pourDuration: 0.5
+  hoverLift: 0.2
+  hoverScale: 1.08
+  hoverSortingOrder: 100
+  hoverSpeed: 12
 --- !u!1 &1836496495
 GameObject:
   m_ObjectHideFlags: 0
@@ -4595,7 +4902,9 @@ GameObject:
   - component: {fileID: 1873069637}
   - component: {fileID: 1873069638}
   - component: {fileID: 1873069640}
-  - component: {fileID: 1873069639}
+  - component: {fileID: 1873069641}
+  - component: {fileID: 1873069642}
+  - component: {fileID: 1873069643}
   m_Layer: 0
   m_Name: spr_Syrup3
   m_TagString: Untagged
@@ -4665,7 +4974,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2071661637
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 50
   m_MaskInteraction: 0
   m_Sprite: {fileID: -20452816, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4677,22 +4986,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &1873069639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1873069636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d118d839fb9034996958029453597e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::bottle_Select
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  animationSpeed: 12
 --- !u!61 &1873069640
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4739,6 +5032,82 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.1, y: 0.24}
   m_EdgeRadius: 0
+--- !u!114 &1873069641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1873069636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
+  data: {fileID: 11400000, guid: 7d709e871550fd04e9f048b8cf3aa462, type: 2}
+  shakerTopPosition: {fileID: 538420245}
+  moveSpeed: 100
+  tiltAngle: 100
+  tiltDuration: 0.3
+  pourDuration: 0.5
+  hoverLift: 0.2
+  hoverScale: 1.08
+  hoverSortingOrder: 100
+  hoverSpeed: 12
+--- !u!114 &1873069642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1873069636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0b83e1ea191d494083512a3dfc5b3d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
+  liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
+  highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  spoutLocalOffset: {x: 0, y: 0.1}
+  flowThreshold: 50
+  maxFlowAngle: 100
+  sizeMultiplier: 2.5
+  minDropSize: 0.05
+  maxDropSize: 0.15
+  minSpawnInterval: 0.02
+  maxSpawnInterval: 0.08
+  particleSpeed: 2
+  particleLifetime: 1.5
+  gravity: 5
+  trailLength: 8
+  trailSizeRatio: 0.7
+--- !u!114 &1873069643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1873069636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0b83e1ea191d494083512a3dfc5b3d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
+  liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
+  highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  spoutLocalOffset: {x: 0, y: 0.5}
+  flowThreshold: 30
+  maxFlowAngle: 90
+  sizeMultiplier: 2.5
+  minDropSize: 0.05
+  maxDropSize: 0.15
+  minSpawnInterval: 0.02
+  maxSpawnInterval: 0.08
+  particleSpeed: 2
+  particleLifetime: 1.5
+  gravity: 5
+  trailLength: 8
+  trailSizeRatio: 0.7
 --- !u!1 &2027402869
 GameObject:
   m_ObjectHideFlags: 0
@@ -4750,7 +5119,7 @@ GameObject:
   - component: {fileID: 2027402870}
   - component: {fileID: 2027402871}
   - component: {fileID: 2027402873}
-  - component: {fileID: 2027402872}
+  - component: {fileID: 2027402874}
   m_Layer: 0
   m_Name: spr_Syrup7
   m_TagString: Untagged
@@ -4820,7 +5189,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2071661637
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 50
   m_MaskInteraction: 0
   m_Sprite: {fileID: -288598411, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4832,22 +5201,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &2027402872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2027402869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d118d839fb9034996958029453597e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::bottle_Select
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  animationSpeed: 12
 --- !u!61 &2027402873
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4894,6 +5247,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.1, y: 0.34}
   m_EdgeRadius: 0
+--- !u!114 &2027402874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027402869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
+  data: {fileID: 0}
+  shakerTopPosition: {fileID: 538420245}
+  moveSpeed: 100
+  tiltAngle: 100
+  tiltDuration: 0.3
+  pourDuration: 0.5
+  hoverLift: 0.2
+  hoverScale: 1.08
+  hoverSortingOrder: 100
+  hoverSpeed: 12
 --- !u!1 &2028651430
 GameObject:
   m_ObjectHideFlags: 0
@@ -4905,7 +5280,8 @@ GameObject:
   - component: {fileID: 2028651431}
   - component: {fileID: 2028651432}
   - component: {fileID: 2028651434}
-  - component: {fileID: 2028651433}
+  - component: {fileID: 2028651435}
+  - component: {fileID: 2028651436}
   m_Layer: 0
   m_Name: spr_Syrup1
   m_TagString: Untagged
@@ -4975,7 +5351,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2071661637
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 50
   m_MaskInteraction: 0
   m_Sprite: {fileID: -1626874789, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4987,22 +5363,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &2028651433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2028651430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d118d839fb9034996958029453597e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::bottle_Select
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  animationSpeed: 12
 --- !u!61 &2028651434
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5049,6 +5409,55 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.07, y: 0.2}
   m_EdgeRadius: 0
+--- !u!114 &2028651435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028651430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
+  data: {fileID: 11400000, guid: ad9514a485fbf274bb6e294e1a04d4be, type: 2}
+  shakerTopPosition: {fileID: 538420245}
+  moveSpeed: 100
+  tiltAngle: 100
+  tiltDuration: 0.3
+  pourDuration: 0.5
+  hoverLift: 0.2
+  hoverScale: 1.08
+  hoverSortingOrder: 100
+  hoverSpeed: 12
+--- !u!114 &2028651436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028651430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0b83e1ea191d494083512a3dfc5b3d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
+  liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
+  highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  spoutLocalOffset: {x: 0, y: 0.1}
+  flowThreshold: 50
+  maxFlowAngle: 100
+  sizeMultiplier: 2.5
+  minDropSize: 0.05
+  maxDropSize: 0.15
+  minSpawnInterval: 0.02
+  maxSpawnInterval: 0.08
+  particleSpeed: 2
+  particleLifetime: 1.5
+  gravity: 5
+  trailLength: 8
+  trailSizeRatio: 0.7
 --- !u!1 &2129002375
 GameObject:
   m_ObjectHideFlags: 0
@@ -5060,7 +5469,7 @@ GameObject:
   - component: {fileID: 2129002376}
   - component: {fileID: 2129002377}
   - component: {fileID: 2129002379}
-  - component: {fileID: 2129002378}
+  - component: {fileID: 2129002380}
   m_Layer: 0
   m_Name: spr_Syrup9
   m_TagString: Untagged
@@ -5130,7 +5539,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2071661637
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 50
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1266360320, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5142,22 +5551,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &2129002378
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2129002375}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d118d839fb9034996958029453597e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::bottle_Select
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  animationSpeed: 12
 --- !u!61 &2129002379
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5204,6 +5597,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.07, y: 0.18}
   m_EdgeRadius: 0
+--- !u!114 &2129002380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2129002375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
+  data: {fileID: 0}
+  shakerTopPosition: {fileID: 538420245}
+  moveSpeed: 100
+  tiltAngle: 100
+  tiltDuration: 0.3
+  pourDuration: 0.5
+  hoverLift: 0.2
+  hoverScale: 1.08
+  hoverSortingOrder: 100
+  hoverSpeed: 12
 --- !u!1 &2134406710
 GameObject:
   m_ObjectHideFlags: 0
@@ -5234,6 +5649,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 538420245}
   - {fileID: 2028651431}
   - {fileID: 1609121846}
   - {fileID: 1873069637}
@@ -5364,12 +5780,64 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2146769658
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2146769660}
+  - component: {fileID: 2146769659}
+  m_Layer: 0
+  m_Name: ShakerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2146769659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146769658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd12b43fe307ac2439407c63ac4305a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShakerManager
+  currentState: 0
+  addedIngredients:
+  - {fileID: 11400000, guid: ad9514a485fbf274bb6e294e1a04d4be, type: 2}
+  - {fileID: 11400000, guid: 3cec783819aafb046bc3afa5326ebf80, type: 2}
+  - {fileID: 11400000, guid: 7d709e871550fd04e9f048b8cf3aa462, type: 2}
+  - {fileID: 11400000, guid: 310bcb5ed518240439b74783c93ea520, type: 2}
+  - {fileID: 11400000, guid: f21ac185a662d7e45bba1a34917de9c0, type: 2}
+--- !u!4 &2146769660
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146769658}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.49452, y: -6.04325, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 619394802}
+  - {fileID: 2146769660}
   - {fileID: 1738374940}
   - {fileID: 1800061147}
   - {fileID: 653639407}

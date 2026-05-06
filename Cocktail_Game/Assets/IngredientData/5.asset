@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63a9dba3a94ebc145a856a3e36c5c301, type: 3}
+  m_Name: 5
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientData
+  ingredientID: 5
+  ingredientName: "\uB7FC"
+  ingredientSprite: {fileID: 1755390623, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
+  liquidColor: {r: 1, g: 1, b: 1, a: 1}
