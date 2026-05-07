@@ -48,6 +48,8 @@ public class LiquidPourEffect : MonoBehaviour
     private List<LiquidParticle> particles = new List<LiquidParticle>();
     private float lastSpawnTime = 0f;
     private bool isPouring = false;
+    private bool isOnShaker = false;
+
 
     private class LiquidParticle
     {
@@ -59,7 +61,10 @@ public class LiquidPourEffect : MonoBehaviour
         public float radius;
         public List<GameObject> trailObjects = new List<GameObject>();
     }
-
+    void Start()
+    {
+        isOnShaker = GetComponent<ShakerStateMachine>() != null;
+    }
     public void StartPouring()
     {
         isPouring = true;
@@ -123,21 +128,47 @@ public class LiquidPourEffect : MonoBehaviour
         GameObject particleObj = new GameObject("LiquidParticle");
         particleObj.transform.position = GetSpoutWorldPosition();
 
+        // Layer 설정 (Liquid)
+        particleObj.layer = LayerMask.NameToLayer("Liquid");
+
         SpriteRenderer sr = particleObj.AddComponent<SpriteRenderer>();
         sr.sprite = CreateCircleSprite();
         sr.color = liquidColor;
 
-        // 부모(재료)와 같은 Sorting Layer + 앞에 보이게
-        SpriteRenderer parentRenderer = GetComponent<SpriteRenderer>();
-        if (parentRenderer != null)
+        // Sorting (기존 그대로)
+        if (isOnShaker)
         {
-            sr.sortingLayerID = parentRenderer.sortingLayerID;
-            sr.sortingOrder = parentRenderer.sortingOrder - 1;
+            sr.sortingLayerName = "Body";
+            sr.sortingOrder = -1;
         }
         else
         {
-            sr.sortingOrder = 1000;
+            SpriteRenderer parentRenderer = GetComponent<SpriteRenderer>();
+            if (parentRenderer != null)
+            {
+                sr.sortingLayerID = parentRenderer.sortingLayerID;
+                sr.sortingOrder = parentRenderer.sortingOrder - 1;
+            }
+            else
+            {
+                sr.sortingOrder = 1000;
+            }
         }
+
+        // ★ Trigger Collider
+        CircleCollider2D col = particleObj.AddComponent<CircleCollider2D>();
+        col.isTrigger = true;
+        col.radius = 0.5f;
+
+        // ★ Dynamic Rigidbody2D (Unity 물리가 위치 관리)
+        Rigidbody2D particleRb = particleObj.AddComponent<Rigidbody2D>();
+        particleRb.bodyType = RigidbodyType2D.Dynamic;
+        particleRb.gravityScale = 0;  // 중력은 코드에서 처리
+        particleRb.linearDamping = 0;
+        particleRb.angularDamping = 0;
+
+        // 충돌 감지
+        particleObj.AddComponent<LiquidParticleCollision>();
 
         LiquidParticle p = new LiquidParticle();
         p.obj = particleObj;
@@ -145,7 +176,6 @@ public class LiquidPourEffect : MonoBehaviour
         p.life = particleLifetime;
         p.maxLife = particleLifetime;
 
-        // 크기 = 기본크기 × 흐름 영향 × 전체 배율
         float baseSize = Random.Range(minDropSize, maxDropSize);
         float flowEffect = 0.7f + flow * 0.3f;
         p.radius = baseSize * flowEffect * sizeMultiplier;
@@ -159,6 +189,9 @@ public class LiquidPourEffect : MonoBehaviour
         );
         p.velocity = (dir + randomOffset).normalized * particleSpeed;
 
+        // ★ Rigidbody에 초기 속도 설정!
+        particleRb.linearVelocity = p.velocity;
+
         particleObj.transform.localScale = Vector3.one * p.radius;
 
         particles.Add(p);
@@ -169,6 +202,17 @@ public class LiquidPourEffect : MonoBehaviour
         for (int i = particles.Count - 1; i >= 0; i--)
         {
             LiquidParticle p = particles[i];
+
+            // 입자가 사라졌으면 제거
+            if (p.obj == null)
+            {
+                foreach (var trailObj in p.trailObjects)
+                {
+                    if (trailObj != null) Destroy(trailObj);
+                }
+                particles.RemoveAt(i);
+                continue;
+            }
 
             // 잔상 추가
             if (trailLength > 0)
@@ -184,8 +228,18 @@ public class LiquidPourEffect : MonoBehaviour
                 SpriteRenderer trailSr = trail.AddComponent<SpriteRenderer>();
                 trailSr.sprite = p.renderer.sprite;
                 trailSr.color = new Color(liquidColor.r, liquidColor.g, liquidColor.b, 0.4f);
-                trailSr.sortingLayerID = p.renderer.sortingLayerID;
-                trailSr.sortingOrder = p.renderer.sortingOrder - 1;
+
+                if (isOnShaker)
+                {
+                    trailSr.sortingLayerName = "Body";
+                    trailSr.sortingOrder = -2;
+                }
+                else
+                {
+                    trailSr.sortingLayerID = p.renderer.sortingLayerID;
+                    trailSr.sortingOrder = p.renderer.sortingOrder - 1;
+                }
+
                 trail.transform.localScale = Vector3.one * p.radius * trailSizeRatio;
                 p.trailObjects.Add(trail);
 
@@ -206,9 +260,13 @@ public class LiquidPourEffect : MonoBehaviour
                 }
             }
 
-            // 중력
-            p.velocity.y -= gravity * Time.deltaTime;
-            p.obj.transform.position += p.velocity * Time.deltaTime;
+            // ★ 중력은 Rigidbody에 적용!
+            Rigidbody2D rb = p.obj.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.linearVelocity += new Vector2(0, -gravity * Time.deltaTime);
+            }
+
             p.life -= Time.deltaTime;
 
             // 죽으면 제거
@@ -223,6 +281,7 @@ public class LiquidPourEffect : MonoBehaviour
             }
         }
     }
+
 
     // 동적으로 원형 스프라이트 생성
     static Sprite cachedCircleSprite;

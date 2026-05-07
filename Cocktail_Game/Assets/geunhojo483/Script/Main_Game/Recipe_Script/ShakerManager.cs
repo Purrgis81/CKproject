@@ -1,47 +1,70 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
 
-// °ÔÀÓ ÁøÇà »óÅÂ¸¦ Ç¥ÇöÇÏ´Â enum
+// ê²Œì„ ì§„í–‰ ìƒíƒœ
 public enum ShakerState
 {
-    AddingIngredients,  // Àç·á ÅõÀÔ ´Ü°è
-    LidClosed,          // ¶Ñ²± µ¤ÀÎ »óÅÂ
-    Shaking,            // Èçµå´Â Áß
-    Pouring,            // ÀÜ¿¡ µû¸£´Â Áß
-    Done                // ¿Ï¼º
+    AddingIngredients,
+    LidClosed,
+    Shaking,
+    Pouring,
+    Done
 }
 
 public class ShakerManager : MonoBehaviour
 {
-    // ½Ì±ÛÅæ ÆĞÅÏ: ´Ù¸¥ ½ºÅ©¸³Æ®¿¡¼­ ShakerManager.Instance·Î ½±°Ô Á¢±Ù °¡´É
     public static ShakerManager Instance;
 
-    [Header("ÇöÀç »óÅÂ")]
+    [Header("í˜„ì¬ ìƒíƒœ")]
     public ShakerState currentState = ShakerState.AddingIngredients;
 
-    // µé¾î°£ Àç·á ¸ñ·Ï
+    [Header("ê²Œì„ ìƒíƒœ")]
     public List<IngredientData> addedIngredients = new List<IngredientData>();
+    public bool hasIce = false;                          // â˜… ì¶”ê°€
+    public GlassType currentGlassType = GlassType.Cocktail;  // â˜… ì¶”ê°€
 
     void Awake()
     {
-        // ½Ì±ÛÅæ ÃÊ±âÈ­
         if (Instance == null)
             Instance = this;
         else
             Destroy(gameObject);
     }
 
-    // Àç·á°¡ µé¾î¿ÔÀ» ¶§ È£ÃâµÊ (Ingredient.cs¿¡¼­ ºÎ¸§)
+    // ===== ì¬ë£Œ ê´€ë¦¬ =====
     public void AddIngredient(IngredientData data)
     {
         addedIngredients.Add(data);
-        Debug.Log($"Àç·á Ãß°¡µÊ: {data.ingredientName} (ÇöÀç {addedIngredients.Count}°³)");
+        Debug.Log($"ì¬ë£Œ ì¶”ê°€ë¨: {data.ingredientName} (í˜„ì¬ {addedIngredients.Count}ê°œ)");
     }
 
-    // »óÅÂ º¯°æ¿ë ÇÔ¼ö
+    // ===== ì–¼ìŒ ê´€ë¦¬ (â˜… ì¶”ê°€) =====
+    public void SetIce(bool ice)
+    {
+        hasIce = ice;
+        Debug.Log($"ğŸ§Š ì–¼ìŒ ìƒíƒœ: {(ice ? "ì¶”ê°€ë¨" : "ì—†ìŒ")}");
+    }
+
+    // ===== ì” ê´€ë¦¬ (â˜… ì¶”ê°€) =====
+    public void SetGlass(GlassType type)
+    {
+        currentGlassType = type;
+        Debug.Log($"ğŸ¥ƒ ì” ì¢…ë¥˜: {type}");
+    }
+
+    // ===== ìƒíƒœ ë³€ê²½ =====
     public void ChangeState(ShakerState newState)
     {
         currentState = newState;
-        Debug.Log($"»óÅÂ º¯°æ: {newState}");
+        Debug.Log($"ìƒíƒœ ë³€ê²½: {newState}");
+    }
+
+    // ===== ì „ì²´ ìƒíƒœ ë¦¬ì…‹ (ì” ë˜ì§„ í›„ ë“±) =====
+    public void ResetAll()
+    {
+        addedIngredients.Clear();
+        hasIce = false;
+        currentState = ShakerState.AddingIngredients;
+        Debug.Log("ğŸ”„ ShakerManager ì „ì²´ ë¦¬ì…‹");
     }
 }

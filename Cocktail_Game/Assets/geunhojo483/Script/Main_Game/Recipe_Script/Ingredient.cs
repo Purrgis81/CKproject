@@ -175,4 +175,24 @@ public class Ingredient : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(0, 0, targetAngle);
     }
+    // ===== 외부에서 재료 초기화 =====
+    public void ResetIngredient()
+    {
+        isUsed = false;
+        isPouring = false;
+
+        // 위치/회전 복원
+        transform.position = originalPos;
+        transform.localScale = originalScale;
+        transform.rotation = Quaternion.identity;
+
+        // 알파 복원
+        if (sr != null)
+        {
+            Color c = sr.color;
+            c.a = 1f;
+            sr.color = c;
+            sr.sortingOrder = originalSortingOrder;
+        }
+    }
 }
