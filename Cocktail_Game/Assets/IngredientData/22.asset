@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63a9dba3a94ebc145a856a3e36c5c301, type: 3}
-  m_Name: 4
+  m_Name: 22
   m_EditorClassIdentifier: Assembly-CSharp::IngredientData
-  ingredientID: 4
-  ingredientName: Grapefruit_S
-  ingredientSprite: {fileID: -347842809, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
+  ingredientID: 22
+  ingredientName: Mint_S
+  ingredientSprite: {fileID: 1755390623, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
   liquidColor: {r: 1, g: 1, b: 1, a: 1}

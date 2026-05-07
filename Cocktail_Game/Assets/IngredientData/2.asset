@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: 2
   m_EditorClassIdentifier: Assembly-CSharp::IngredientData
   ingredientID: 2
-  ingredientName: "\uB370\uD0AC\uB77C"
+  ingredientName: Strawberry_S
   ingredientSprite: {fileID: -1381369645, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
   liquidColor: {r: 1, g: 1, b: 1, a: 1}

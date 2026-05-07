@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: 3
   m_EditorClassIdentifier: Assembly-CSharp::IngredientData
   ingredientID: 3
-  ingredientName: "\uB77C\uC784"
+  ingredientName: Peach_S
   ingredientSprite: {fileID: -20452816, guid: f760d13031d97e4429a85e4bc459b3e9, type: 3}
   liquidColor: {r: 1, g: 1, b: 1, a: 1}
