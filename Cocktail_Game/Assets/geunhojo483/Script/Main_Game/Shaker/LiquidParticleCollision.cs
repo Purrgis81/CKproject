@@ -5,26 +5,24 @@ public class LiquidParticleCollision : MonoBehaviour
 {
     private bool hasCollided = false;
 
+    // ★ 이 방울이 어떤 재료에서 나왔는지 (쉐이커 받이가 읽어서 양을 셈)
+    public IngredientData sourceIngredient;
+
     void Start()
     {
-        Debug.Log($"💧 입자 생성됨! 내 Layer: {LayerMask.LayerToName(gameObject.layer)}");
+        // (디버그 로그가 필요하면 여기서)
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // ★ 모든 충돌 출력 (어떤 거든 다)
-        Debug.Log($"🔍 충돌 감지! 상대: {other.gameObject.name}, Layer: {LayerMask.LayerToName(other.gameObject.layer)}");
-
         if (hasCollided) return;
 
-        // Catcher 레이어 체크
+        // Catcher 레이어가 아니면 무시
         if (other.gameObject.layer != LayerMask.NameToLayer("Catcher"))
         {
-            Debug.Log("   ❌ Catcher 아님 → 무시");
             return;
         }
 
-        Debug.Log("   ✅ Catcher 맞음 → 사라짐!");
         hasCollided = true;
         StartCoroutine(SplashEffect());
     }

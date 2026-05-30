@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 9002846359211551877}
   - component: {fileID: 7748396716034525201}
+  - component: {fileID: 8532222923806739115}
   - component: {fileID: 6253860276904816529}
   - component: {fileID: 4803811846527828776}
-  - component: {fileID: 4553434470526440982}
   m_Layer: 7
   m_Name: Cup5
   m_TagString: Untagged
@@ -94,6 +94,21 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8532222923806739115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8336758801194401979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  freezePhysicsWhileHeld: 1
 --- !u!61 &6253860276904816529
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -167,20 +182,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &4553434470526440982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8336758801194401979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dc6b3fa7a8128f4ca3d64a6d934c1d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Slingshot
-  forceMultiplier: 10
-  maxDragDistance: 3
-  minDragDistance: 0.5
-  maxGrabSpeed: 0.05
-  maxGrabAngle: 5

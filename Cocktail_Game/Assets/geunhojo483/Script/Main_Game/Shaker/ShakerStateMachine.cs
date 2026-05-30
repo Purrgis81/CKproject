@@ -1,57 +1,61 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public enum ShakerMode
 {
-    Separated,      // 1: 분리 상태 (재료 투입)
-    Closed,         // 1.5: 닫힘 상태 (흔들기 대기)
-    Shaking,        // 2: 흔들기 중
-    ReadyToPour,    // 3: 따르기 대기
-    Pouring,        // 4: 따르는 중
-    ReadyToThrow    // 5: 던지기 대기 (따르기 완료)
+    Separated,      // 분리 (재료 투입) - 카운터 위에 놓임
+    Closed,         // 닫힘 (위아래로 흔드는 중)
+    ReadyToPour,    // 따르기 대기 (뚜껑 분리 완료, 위로 들어올리면 따라짐)
+    Pouring         // 따르는 중
 }
 
+// ★ 물리 기반:
+//   - 쉐이커 Rigidbody2D는 Dynamic + 중력 → 안 잡으면 카운터 위에 떨어져 놓임.
+//   - 입력(잡기/이동/던지기)은 DraggableObject가 전담 (잡는 동안만 Kinematic).
+//   - 이 스크립트는 잡혀서 움직이는 동안의 "움직임"만 관찰해 흔들기/따르기를 판단.
+//   - 단계 전환: 흔들기 끝 → (뚜껑을 눌러 분리) → 따르기.  ※ 본체 이동은 던지기 전용.
+[RequireComponent(typeof(Rigidbody2D))]
 public class ShakerStateMachine : MonoBehaviour
 {
     public static ShakerStateMachine Instance;
 
-    [Header("스프라이트 변환")]
+    [Header("스프라이트")]
     public SpriteRenderer bodyRenderer;
     public Sprite separatedSprite;
     public Sprite combinedSprite;
 
-    [Header("뚜껑 제어")]
+    [Header("뚜껑")]
     public GameObject lidObject;
+    [Tooltip("쉐이커 자식으로 둔 '뚜껑 콜라이더'. 닫혔을 때만 켜지고, 클릭하면 열림 (머신이 직접 관리)")]
+    public Collider2D lidCollider;
 
-    [Header("흔들기 설정")]
-    public float shakeDuration = 1f;
-    public float shakeAmount = 0.2f;
-    public float shakeFrequency = 30f;
+    [Header("흔들기 (위아래로 움직여 흔들기)")]
+    [Tooltip("위아래로 움직인 거리가 이만큼 쌓이면 흔들기 완료")]
+    public float shakeDistanceNeeded = 8f;
 
-    [Header("따르기 설정")]
-    public Transform glassPosition;
-    public float pourTiltAngle = 100f;
-    public float pourDuration = 1.5f;
-
-    [Header("Slingshot 설정")]
-    public float forceMultiplier = 10f;
-    public float maxDragDistance = 3f;
-    public float minDragDistance = 0.5f;
+    [Header("따르기 (위로 들어올려 기울이기)")]
+    [Tooltip("기준 높이보다 이만큼 위로 올리면 최대 각도까지 기울어짐 (월드 단위)")]
+    public float pourLiftRange = 2f;
+    public float maxPourAngle = 120f;
+    [Tooltip("실제로 따른 시간이 이만큼 쌓이면 따르기 완료")]
+    public float pourTimeToComplete = 2f;
 
     [Header("현재 상태")]
     public ShakerMode currentMode = ShakerMode.Separated;
+    public bool shakeComplete = false;   // 다른 스크립트(뚜껑)가 읽음
 
-    // 내부 변수
     private Vector3 originalPosition;
-    private Quaternion originalRotation;
     private Rigidbody2D rb;
     private Camera cam;
-    private bool wasDraggedFar = false;  // 드래그 중 멀리 갔는지 추적
+    private LiquidPourEffect liquidEffect;
 
-    // Slingshot 관련
-    private Vector3 dragStartPos;
-    private bool isDragging = false;
-    private bool hasBeenThrown = false;
+    private Vector3 lastPos;
+    private float shakeProgress = 0f;
+    private float pourReferenceY = 0f;
+    private float pourProgress = 0f;
+    private bool pourFinished = false;
+
+    private DraggableObject draggable;
+    private bool frozenForIngredient = false;
 
     void Awake()
     {
@@ -65,25 +69,154 @@ public class ShakerStateMachine : MonoBehaviour
     void Start()
     {
         originalPosition = transform.position;
-        originalRotation = transform.rotation;
+        liquidEffect = GetComponent<LiquidPourEffect>();
 
-        // Rigidbody2D 초기화
-        if (rb != null)
-        {
-            rb.bodyType = RigidbodyType2D.Kinematic;
-            rb.linearVelocity = Vector2.zero;
-            rb.angularVelocity = 0f;
-        }
+        draggable = GetComponent<DraggableObject>();
 
+        lastPos = transform.position;
         SetMode(ShakerMode.Separated);
     }
 
     void Update()
     {
-        // ★ 던진 후 화면 밖으로 나가면 처리
-        if (hasBeenThrown && currentMode == ShakerMode.ReadyToThrow)
+        // 닫힘 상태에서 뚜껑 콜라이더를 클릭하면 → 열기
+        if (currentMode == ShakerMode.Closed && Input.GetMouseButtonDown(0)
+            && lidCollider != null && lidCollider.enabled && cam != null)
         {
+            Vector2 mouseWorld = cam.ScreenToWorldPoint(Input.mousePosition);
+            if (lidCollider.OverlapPoint(mouseWorld))
+            {
+                OnLidRemoved();
+                return;
+            }
+        }
+
+        // 재료를 집고 있는 동안엔 쉐이커 완전 고정 (안 움직이게)
+        if (IngredientPourController.AnyHeld)
+        {
+            if (!frozenForIngredient) frozenForIngredient = true;
+            if (rb != null)
+            {
+                rb.bodyType = RigidbodyType2D.Kinematic;
+                rb.linearVelocity = Vector2.zero;
+                rb.angularVelocity = 0f;
+            }
+            lastPos = transform.position;
+            return;
+        }
+        else if (frozenForIngredient)
+        {
+            // 재료를 막 놓음 → 물리 복구 (카운터 위에 다시 놓이게)
+            frozenForIngredient = false;
+            if (rb != null) rb.bodyType = RigidbodyType2D.Dynamic;
+        }
+
+        bool isHeld = (rb != null && rb.bodyType == RigidbodyType2D.Kinematic);
+
+        if (isHeld)
+        {
+            // 잡혀서 움직이는 동안만 흔들기/따르기 관찰
+            ObserveMotion();
+        }
+        else
+        {
+            // 물리로 굴러다니는 중(놓임/던져짐) → 화면 밖이면 리스폰
             CheckIfOutOfScreen();
+        }
+
+        lastPos = transform.position;
+    }
+
+    // ===== 움직임 관찰 =====
+    void ObserveMotion()
+    {
+        if (currentMode == ShakerMode.Closed)
+        {
+            if (!shakeComplete)
+            {
+                float dy = Mathf.Abs(transform.position.y - lastPos.y);
+                shakeProgress += dy;
+
+                if (shakeProgress >= shakeDistanceNeeded)
+                {
+                    shakeComplete = true;
+                    Debug.Log("🍸 흔들기 완료! 뚜껑을 눌러 분리하세요.");
+                }
+            }
+        }
+        else if (currentMode == ShakerMode.ReadyToPour || currentMode == ShakerMode.Pouring)
+        {
+            UpdatePourByLift();
+        }
+    }
+
+    void UpdatePourByLift()
+    {
+        if (pourFinished) return;
+
+        float lift = transform.position.y - pourReferenceY;
+        float ratio = Mathf.Clamp01(lift / pourLiftRange);
+        float angle = ratio * maxPourAngle;
+
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
+
+        bool flowing = angle >= GetPourThreshold();
+
+        if (flowing)
+        {
+            if (currentMode != ShakerMode.Pouring) currentMode = ShakerMode.Pouring;
+            if (liquidEffect != null) liquidEffect.StartPouring();
+
+            pourProgress += Time.deltaTime;
+            if (pourProgress >= pourTimeToComplete) FinishPour();
+        }
+        else
+        {
+            if (liquidEffect != null) liquidEffect.StopPouring();
+        }
+    }
+
+    void FinishPour()
+    {
+        pourFinished = true;
+        if (liquidEffect != null) liquidEffect.StopPouring();
+        Debug.Log("✅ 따르기 완료! 쉐이커를 휘둘러 치우세요. (종을 눌러 새로 시작)");
+    }
+
+    float GetPourThreshold()
+    {
+        if (liquidEffect != null) return liquidEffect.flowThreshold;
+        return 50f;
+    }
+
+    // 뚜껑 콜라이더(자식)를 켜고 끔
+    void SetLidClickArea(bool on)
+    {
+        if (lidCollider != null)
+        {
+            lidCollider.enabled = on;
+            Debug.Log($"🎩 뚜껑 콜라이더 {(on ? "켬" : "끔")} → {lidCollider.name}");
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ Lid Collider 슬롯이 비어있어요! ShakerStateMachine 인스펙터에 연결하세요.");
+        }
+    }
+
+    // ===== 뚜껑이 눌려 분리되면 호출 (ShakerLidController가 호출) =====
+    public void OnLidRemoved()
+    {
+        if (currentMode != ShakerMode.Closed) return;
+
+        if (shakeComplete)
+        {
+            Debug.Log("🎩 뚜껑 분리 인식 → 따르기 단계!");
+            SetMode(ShakerMode.ReadyToPour);
+        }
+        else
+        {
+            Debug.Log("🎩 아직 덜 흔들렸어요 → 다시 분리 상태로 (뚜껑 닫고 더 흔드세요)");
+            SetMode(ShakerMode.Separated);
         }
     }
 
@@ -95,28 +228,12 @@ public class ShakerStateMachine : MonoBehaviour
 
         switch (newMode)
         {
-            case ShakerMode.Separated:
-                ApplySeparatedMode();
-                break;
-            case ShakerMode.Closed:
-                ApplyClosedMode();
-                break;
-            case ShakerMode.Shaking:
-                ApplyShakingMode();
-                break;
-            case ShakerMode.ReadyToPour:
-                ApplyReadyToPourMode();
-                break;
-            case ShakerMode.Pouring:
-                ApplyPouringMode();
-                break;
-            case ShakerMode.ReadyToThrow:
-                ApplyReadyToThrowMode();
-                break;
+            case ShakerMode.Separated: ApplySeparatedMode(); break;
+            case ShakerMode.Closed: ApplyClosedMode(); break;
+            case ShakerMode.ReadyToPour: ApplyReadyToPourMode(); break;
+            case ShakerMode.Pouring: break;
         }
     }
-
-    // ===== 모드별 동작 =====
 
     void ApplySeparatedMode()
     {
@@ -124,399 +241,98 @@ public class ShakerStateMachine : MonoBehaviour
             bodyRenderer.sprite = separatedSprite;
 
         if (lidObject != null)
+        {
             lidObject.SetActive(true);
+            ShakerLidController lidCtrl = lidObject.GetComponent<ShakerLidController>();
+            if (lidCtrl != null) lidCtrl.ResetToStart();
+        }
+        SetLidClickArea(false);
 
+        // 카운터 위 제자리로 되돌리고, 물리(Dynamic) 켜서 안정적으로 놓임
         transform.position = originalPosition;
-        transform.rotation = originalRotation;
+        transform.rotation = Quaternion.identity;
+        lastPos = transform.position;
 
-        // Rigidbody2D는 Kinematic 유지
         if (rb != null)
         {
-            rb.bodyType = RigidbodyType2D.Kinematic;
+            rb.bodyType = RigidbodyType2D.Dynamic;
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
         }
+
+        shakeComplete = false;
+        shakeProgress = 0f;
+        pourFinished = false;
+        pourProgress = 0f;
     }
 
     void ApplyClosedMode()
     {
-        Debug.Log("🔒 뚜껑 닫힘! 흔들기 대기 중...");
+        Debug.Log("🔒 뚜껑 닫힘! 위아래로 흔든 뒤, 뚜껑을 클릭해 여세요.");
 
         if (bodyRenderer != null && combinedSprite != null)
             bodyRenderer.sprite = combinedSprite;
 
-        if (lidObject != null)
-            lidObject.SetActive(false);
-    }
+        // 뚜껑(드래그용)은 숨기고, 대신 자식 '클릭 영역'을 켜서 클릭으로 열 수 있게
+        if (lidObject != null) lidObject.SetActive(false);
+        SetLidClickArea(true);
 
-    void ApplyShakingMode()
-    {
-        Debug.Log("💪 흔들기 시작!");
-        StartCoroutine(ShakeRoutine());
+        shakeComplete = false;
+        shakeProgress = 0f;
+        lastPos = transform.position;
     }
 
     void ApplyReadyToPourMode()
     {
-        transform.position = originalPosition;
-    }
-
-    void ApplyPouringMode()
-    {
-        // ★ 안전장치: 드래그 강제 종료
-        isDragging = false;
-
-        StartCoroutine(PourRoutine());
-    }
-
-    void ApplyReadyToThrowMode()
-    {
-        Debug.Log("🎯 던지기 가능! 드래그해서 발사하세요!");
-        // 던지기 모드로 진입했을 때 시작 위치 저장
-        dragStartPos = transform.position;
-    }
-
-    // ===== 흔들기 =====
-    IEnumerator ShakeRoutine()
-    {
-        float elapsed = 0f;
-
-        while (elapsed < shakeDuration)
-        {
-            elapsed += Time.deltaTime;
-
-            // ★ Y축만 흔들기! X는 0으로 고정
-            float offsetY = Mathf.Sin(elapsed * shakeFrequency) * shakeAmount;
-
-            transform.position = originalPosition + new Vector3(0, offsetY, 0);
-
-            yield return null;
-        }
-
-        transform.position = originalPosition;
-        SetMode(ShakerMode.ReadyToPour);
-    }
-
-    // ===== 따르기 =====
-    IEnumerator PourRoutine()
-    {
-        Debug.Log("🥤 따르기 시작!");
-
-        // 1. 잔 위치로 순간이동
-        if (glassPosition != null)
-        {
-            transform.position = glassPosition.position;
-        }
-
-        // 2. 분리 스프라이트로 변경
+        // 분리 사인: 본체는 분리 스프라이트, 뚜껑은 다시 나타남(벗긴 모습)
         if (bodyRenderer != null && separatedSprite != null)
-        {
             bodyRenderer.sprite = separatedSprite;
-            Debug.Log("📦 분리 스프라이트로 변경");
-        }
-
-        // 3. 뚜껑 다시 표시
         if (lidObject != null)
         {
             lidObject.SetActive(true);
-            Debug.Log("🎩 뚜껑 다시 표시");
+            ShakerLidController lidCtrl = lidObject.GetComponent<ShakerLidController>();
+            if (lidCtrl != null) lidCtrl.ResetToStart();
         }
+        SetLidClickArea(false);
 
-        yield return new WaitForSeconds(0.1f);
-
-        // 4. 액체 효과 시작!
-        LiquidPourEffect liquidEffect = GetComponent<LiquidPourEffect>();
-        if (liquidEffect != null)
-        {
-            liquidEffect.StartPouring();
-        }
-
-        // 5. 기울이기 (+100도)
-        float tiltDuration = 0.3f;
-        float elapsed = 0f;
-        while (elapsed < tiltDuration)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed / tiltDuration;
-            transform.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(0f, pourTiltAngle, t));
-            yield return null;
-        }
-        transform.rotation = Quaternion.Euler(0, 0, pourTiltAngle);
-
-        // 6. 따르는 시간
-        Debug.Log("🍹 따르는 중...");
-        yield return new WaitForSeconds(pourDuration);
-
-        // 7. 0도로 복귀
-        elapsed = 0f;
-        while (elapsed < tiltDuration)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed / tiltDuration;
-            transform.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(pourTiltAngle, 0f, t));
-            yield return null;
-        }
+        pourReferenceY = transform.position.y;  // 지금 높이 기준, 위로 올리면 따라짐
+        pourProgress = 0f;
+        pourFinished = false;
         transform.rotation = Quaternion.identity;
-
-        // 8. 액체 효과 종료
-        if (liquidEffect != null)
-        {
-            liquidEffect.StopPouring();
-        }
-
-        // 9. 따르기 완료!
-        Debug.Log("✅ 따르기 완료!");
-
-        yield return new WaitForSeconds(0.3f);
-
-        // 페이드 아웃 (이 안에서 ShakerSpawner도 호출함)
-        yield return StartCoroutine(FadeOutAndDisappear());
-
-        // ★ 여기서 추가 호출은 안 함! (FadeOutAndDisappear 안에서 이미 호출됨)
+        Debug.Log("🥤 따르기 대기! 위로 들어올리면 따라집니다.");
     }
 
-    // ===== Slingshot 마우스 입력 =====
-
-    void OnMouseDown()
-    {
-        // 따르기 중이면 안 됨 (애니메이션 방해)
-        if (currentMode == ShakerMode.Pouring) return;
-        if (hasBeenThrown) return;
-
-        isDragging = true;
-        dragStartPos = transform.position;
-
-        if (rb != null)
-        {
-            rb.bodyType = RigidbodyType2D.Kinematic;
-            rb.linearVelocity = Vector2.zero;
-            rb.angularVelocity = 0f;
-        }
-        wasDraggedFar = false;
-
-        Debug.Log($"✋ 쉐이커 잡음! (모드: {currentMode})");
-    }
-
-    void OnMouseDrag()
-    {
-        if (!isDragging) return;
-
-        Vector3 mouseWorld = cam.ScreenToWorldPoint(Input.mousePosition);
-        mouseWorld.z = 0;
-
-        Vector3 offset = mouseWorld - dragStartPos;
-        if (offset.x < 0) offset.x = 0;  // 왼쪽으로만
-        offset.y = 0;                      // Y축 고정
-
-        if (offset.magnitude > maxDragDistance)
-            offset = offset.normalized * maxDragDistance;
-
-        transform.position = dragStartPos + offset;
-
-        // 한 번이라도 minDragDistance 이상 갔으면 기록
-        Vector3 currentDragVector = transform.position - dragStartPos;
-        if (currentDragVector.magnitude >= minDragDistance)
-        {
-            wasDraggedFar = true;
-        }
-    }
-
-    void OnMouseUp()
-    {
-        if (!isDragging) return;
-        isDragging = false;
-
-        Vector3 dragVector = transform.position - dragStartPos;
-
-        // 드래그 중 멀리 안 갔으면 = 진짜 클릭
-        if (!wasDraggedFar)
-        {
-            transform.position = dragStartPos;
-            HandleClick();
-            return;
-        }
-
-        // 드래그 중 멀리 갔지만 끝에 원위치 = 취소
-        if (dragVector.magnitude < minDragDistance)
-        {
-            transform.position = dragStartPos;
-            Debug.Log("🚫 드래그 취소!");
-            return;
-        }
-
-        // ★ 드래그 거리 충분 = 던지기! (이 부분이 빠져있었음!)
-        if (rb != null)
-        {
-            rb.bodyType = RigidbodyType2D.Dynamic;
-            Vector2 force = -dragVector * forceMultiplier;
-            rb.AddForce(force, ForceMode2D.Impulse);
-        }
-
-        hasBeenThrown = true;
-        Debug.Log($"🚀 쉐이커 발사! (모드: {currentMode})");
-
-        SetMode(ShakerMode.ReadyToThrow);
-    }
-
-    // ★ 클릭 처리 함수
-    void HandleClick()
-    {
-        Debug.Log($"👆 클릭됨! 현재 모드: {currentMode}");
-
-        switch (currentMode)
-        {
-            case ShakerMode.Closed:
-                // 닫힘 → 흔들기 시작
-                SetMode(ShakerMode.Shaking);
-                break;
-
-            case ShakerMode.ReadyToPour:
-                // ★ 따르기 대기 → 따르기 시작!
-                SetMode(ShakerMode.Pouring);
-                break;
-
-            // 다른 모드는 클릭 무시
-            default:
-                Debug.Log($"   → {currentMode}에서 클릭 무시");
-                break;
-        }
-    }
-
-    // ===== 화면 밖 체크 =====
+    // ===== 화면 밖 체크 (던져진 뒤) =====
     void CheckIfOutOfScreen()
     {
         if (cam == null) return;
 
-        Vector3 viewportPos = cam.WorldToViewportPoint(transform.position);
-
-        if (viewportPos.x < -0.2f || viewportPos.x > 1.2f ||
-            viewportPos.y < -0.2f || viewportPos.y > 1.2f)
+        Vector3 v = cam.WorldToViewportPoint(transform.position);
+        if (v.x < -0.2f || v.x > 1.2f || v.y < -0.2f || v.y > 1.2f)
         {
             Debug.Log("🚀 쉐이커 화면 밖으로 나감!");
-
             gameObject.SetActive(false);
-
             if (ShakerSpawner.Instance != null)
-            {
                 ShakerSpawner.Instance.OnShakerFinished();
-            }
         }
     }
 
     // ===== 외부에서 재활성화 =====
     public void ResetAndReappear()
     {
-        // 위치/회전 복원
-        transform.position = originalPosition;
-        transform.rotation = originalRotation;
-
-        // 본체 활성화
         gameObject.SetActive(true);
 
-        // 알파 복원
         if (bodyRenderer != null)
         {
-            Color c = bodyRenderer.color;
-            c.a = 1f;
-            bodyRenderer.color = c;
+            Color c = bodyRenderer.color; c.a = 1f; bodyRenderer.color = c;
         }
-
-        // 뚜껑 활성화
         if (lidObject != null)
         {
-            lidObject.SetActive(true);
             SpriteRenderer lidSr = lidObject.GetComponent<SpriteRenderer>();
-            if (lidSr != null)
-            {
-                Color c = lidSr.color;
-                c.a = 1f;
-                lidSr.color = c;
-            }
+            if (lidSr != null) { Color c = lidSr.color; c.a = 1f; lidSr.color = c; }
         }
 
-        // Rigidbody2D 초기화
-        if (rb != null)
-        {
-            rb.bodyType = RigidbodyType2D.Kinematic;
-            rb.linearVelocity = Vector2.zero;
-            rb.angularVelocity = 0f;
-        }
-
-        // 던지기 상태 초기화
-        hasBeenThrown = false;
-        isDragging = false;
-
-        // 모드 1로 시작
         SetMode(ShakerMode.Separated);
-
         Debug.Log("🍹 쉐이커 재등장!");
-    }
-    IEnumerator FadeOutAndDisappear()
-    {
-        float duration = 0.5f;
-        float elapsed = 0f;
-
-        SpriteRenderer lidSr = lidObject != null ? lidObject.GetComponent<SpriteRenderer>() : null;
-        SpriteRenderer[] childRenderers = GetComponentsInChildren<SpriteRenderer>();
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float alpha = 1f - (elapsed / duration);
-
-            // 본체 페이드
-            if (bodyRenderer != null)
-            {
-                Color c = bodyRenderer.color;
-                c.a = alpha;
-                bodyRenderer.color = c;
-            }
-
-            // 뚜껑 페이드
-            if (lidSr != null)
-            {
-                Color c = lidSr.color;
-                c.a = alpha;
-                lidSr.color = c;
-            }
-
-            // 모든 자식 페이드
-            foreach (var sr in childRenderers)
-            {
-                if (sr != null)
-                {
-                    Color c = sr.color;
-                    c.a = alpha;
-                    sr.color = c;
-                }
-            }
-
-            yield return null;
-        }
-
-        // ★ 사라지기 전에 ShakerSpawner에 알림! (코루틴 살아있을 때!)
-        if (ShakerSpawner.Instance != null)
-        {
-            Debug.Log("📞 ShakerSpawner.OnShakerFinished() 호출!");
-            ShakerSpawner.Instance.OnShakerFinished();
-        }
-        else
-        {
-            Debug.LogError("❌ ShakerSpawner.Instance가 null!");
-        }
-
-        // 모든 자식 비활성화
-        foreach (Transform child in transform)
-        {
-            child.gameObject.SetActive(false);
-        }
-
-        // 뚜껑 비활성화
-        if (lidObject != null)
-        {
-            lidObject.SetActive(false);
-        }
-
-        // 완전히 사라짐
-        gameObject.SetActive(false);
     }
 }

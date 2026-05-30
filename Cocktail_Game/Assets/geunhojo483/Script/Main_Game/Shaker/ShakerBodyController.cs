@@ -7,14 +7,6 @@ public class ShakerBodyController : MonoBehaviour
     {
         var currentMode = ShakerStateMachine.Instance.currentMode;
 
-        // [경우 1] 닫힘 상태에서 클릭 → 흔들기 시작!
-        if (currentMode == ShakerMode.Closed)
-        {
-            Debug.Log("🍹 본체 클릭! 흔들기 시작!");
-            ShakerStateMachine.Instance.SetMode(ShakerMode.Shaking);
-            return;
-        }
-
         // [경우 2] 따르기 대기 상태에서 클릭 → 따르기!
         if (currentMode == ShakerMode.ReadyToPour)
         {

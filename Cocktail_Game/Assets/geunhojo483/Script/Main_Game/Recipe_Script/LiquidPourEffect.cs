@@ -7,6 +7,10 @@ public class LiquidPourEffect : MonoBehaviour
     public Color liquidColor = new Color(0.83f, 0.63f, 0.09f, 1f);
     public Color highlightColor = new Color(1f, 0.9f, 0.59f, 0.7f);
 
+    [Header("재료 식별 (보통 자동으로 채워짐)")]
+    [Tooltip("이 액체가 어떤 재료인지. 같은 오브젝트에 IngredientPourController가 있으면 자동으로 가져옴")]
+    public IngredientData sourceIngredient;
+
     [Header("주둥이 위치 (재료 기준 로컬 좌표)")]
     [Tooltip("재료의 어디가 주둥이인지 (보통 위쪽)")]
     public Vector2 spoutLocalOffset = new Vector2(0f, 0.5f);
@@ -18,18 +22,13 @@ public class LiquidPourEffect : MonoBehaviour
     public float maxFlowAngle = 100f;
 
     [Header("입자 크기 설정")]
-    [Tooltip("전체 크기 배율 (1=기본, 2=2배 크게, 0.5=절반)")]
     [Range(0.1f, 5f)]
     public float sizeMultiplier = 2.5f;
-    [Tooltip("입자의 최소 크기")]
     public float minDropSize = 0.05f;
-    [Tooltip("입자의 최대 크기")]
     public float maxDropSize = 0.15f;
 
     [Header("입자 생성 설정")]
-    [Tooltip("강하게 흐를 때 입자 사이 시간 (작을수록 콸콸)")]
     public float minSpawnInterval = 0.015f;
-    [Tooltip("약하게 흐를 때 입자 사이 시간")]
     public float maxSpawnInterval = 0.06f;
 
     [Header("입자 움직임")]
@@ -38,9 +37,7 @@ public class LiquidPourEffect : MonoBehaviour
     public float gravity = 8f;
 
     [Header("잔상")]
-    [Tooltip("잔상 길이 (0이면 잔상 없음)")]
     public int trailLength = 8;
-    [Tooltip("잔상 크기 비율 (입자 대비)")]
     [Range(0.1f, 1f)]
     public float trailSizeRatio = 0.7f;
 
@@ -49,7 +46,6 @@ public class LiquidPourEffect : MonoBehaviour
     private float lastSpawnTime = 0f;
     private bool isPouring = false;
     private bool isOnShaker = false;
-
 
     private class LiquidParticle
     {
@@ -61,10 +57,19 @@ public class LiquidPourEffect : MonoBehaviour
         public float radius;
         public List<GameObject> trailObjects = new List<GameObject>();
     }
+
     void Start()
     {
         isOnShaker = GetComponent<ShakerStateMachine>() != null;
+
+        // ★ 같은 오브젝트에 재료 컨트롤러가 있으면, 그 재료 정보를 가져옴
+        IngredientPourController ipc = GetComponent<IngredientPourController>();
+        if (ipc != null)
+        {
+            sourceIngredient = ipc.ingredientData;
+        }
     }
+
     public void StartPouring()
     {
         isPouring = true;
@@ -73,6 +78,12 @@ public class LiquidPourEffect : MonoBehaviour
     public void StopPouring()
     {
         isPouring = false;
+    }
+
+    // ★ 현재 흐름량(0~1)을 밖에서 읽기 위한 공개 함수
+    public float GetCurrentFlow()
+    {
+        return CalculateFlowAmount();
     }
 
     void Update()
@@ -128,14 +139,12 @@ public class LiquidPourEffect : MonoBehaviour
         GameObject particleObj = new GameObject("LiquidParticle");
         particleObj.transform.position = GetSpoutWorldPosition();
 
-        // Layer 설정 (Liquid)
         particleObj.layer = LayerMask.NameToLayer("Liquid");
 
         SpriteRenderer sr = particleObj.AddComponent<SpriteRenderer>();
         sr.sprite = CreateCircleSprite();
         sr.color = liquidColor;
 
-        // Sorting (기존 그대로)
         if (isOnShaker)
         {
             sr.sortingLayerName = "Body";
@@ -155,20 +164,19 @@ public class LiquidPourEffect : MonoBehaviour
             }
         }
 
-        // ★ Trigger Collider
         CircleCollider2D col = particleObj.AddComponent<CircleCollider2D>();
         col.isTrigger = true;
         col.radius = 0.5f;
 
-        // ★ Dynamic Rigidbody2D (Unity 물리가 위치 관리)
         Rigidbody2D particleRb = particleObj.AddComponent<Rigidbody2D>();
         particleRb.bodyType = RigidbodyType2D.Dynamic;
-        particleRb.gravityScale = 0;  // 중력은 코드에서 처리
+        particleRb.gravityScale = 0;
         particleRb.linearDamping = 0;
         particleRb.angularDamping = 0;
 
-        // 충돌 감지
-        particleObj.AddComponent<LiquidParticleCollision>();
+        // ★ 충돌 감지 + 이 방울이 어떤 재료인지 표시
+        LiquidParticleCollision collision = particleObj.AddComponent<LiquidParticleCollision>();
+        collision.sourceIngredient = sourceIngredient;
 
         LiquidParticle p = new LiquidParticle();
         p.obj = particleObj;
@@ -189,7 +197,6 @@ public class LiquidPourEffect : MonoBehaviour
         );
         p.velocity = (dir + randomOffset).normalized * particleSpeed;
 
-        // ★ Rigidbody에 초기 속도 설정!
         particleRb.linearVelocity = p.velocity;
 
         particleObj.transform.localScale = Vector3.one * p.radius;
@@ -203,7 +210,6 @@ public class LiquidPourEffect : MonoBehaviour
         {
             LiquidParticle p = particles[i];
 
-            // 입자가 사라졌으면 제거
             if (p.obj == null)
             {
                 foreach (var trailObj in p.trailObjects)
@@ -214,7 +220,6 @@ public class LiquidPourEffect : MonoBehaviour
                 continue;
             }
 
-            // 잔상 추가
             if (trailLength > 0)
             {
                 if (p.trailObjects.Count >= trailLength)
@@ -243,7 +248,6 @@ public class LiquidPourEffect : MonoBehaviour
                 trail.transform.localScale = Vector3.one * p.radius * trailSizeRatio;
                 p.trailObjects.Add(trail);
 
-                // 잔상 페이드
                 for (int j = 0; j < p.trailObjects.Count; j++)
                 {
                     if (p.trailObjects[j] == null) continue;
@@ -260,7 +264,6 @@ public class LiquidPourEffect : MonoBehaviour
                 }
             }
 
-            // ★ 중력은 Rigidbody에 적용!
             Rigidbody2D rb = p.obj.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
@@ -269,7 +272,6 @@ public class LiquidPourEffect : MonoBehaviour
 
             p.life -= Time.deltaTime;
 
-            // 죽으면 제거
             if (p.life <= 0f || p.obj.transform.position.y < -20f)
             {
                 foreach (var trailObj in p.trailObjects)
@@ -282,8 +284,6 @@ public class LiquidPourEffect : MonoBehaviour
         }
     }
 
-
-    // 동적으로 원형 스프라이트 생성
     static Sprite cachedCircleSprite;
     Sprite CreateCircleSprite()
     {

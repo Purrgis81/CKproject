@@ -210,6 +210,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &159124108
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 159124110}
+  - component: {fileID: 159124109}
+  m_Layer: 0
+  m_Name: OrderManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &159124109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159124108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 557a894c1001ffa45922d16ef819e9ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OrderManager
+  customer: {fileID: 1032729940}
+  receipt: {fileID: 2036885230}
+  nextOrderDelay: 1.5
+  orderActive: 0
+--- !u!4 &159124110
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159124108}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.34057, y: -5.12144, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &215560548
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,8 +269,11 @@ GameObject:
   - component: {fileID: 215560549}
   - component: {fileID: 215560550}
   - component: {fileID: 215560553}
-  - component: {fileID: 215560552}
   - component: {fileID: 215560551}
+  - component: {fileID: 215560555}
+  - component: {fileID: 215560554}
+  - component: {fileID: 215560556}
+  - component: {fileID: 215560557}
   m_Layer: 0
   m_Name: 5_19
   m_TagString: Untagged
@@ -318,6 +369,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
   liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
   highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  sourceIngredient: {fileID: 0}
   spoutLocalOffset: {x: 0, y: 0.15}
   flowThreshold: 50
   maxFlowAngle: 100
@@ -331,28 +383,6 @@ MonoBehaviour:
   gravity: 8
   trailLength: 8
   trailSizeRatio: 0.7
---- !u!114 &215560552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 215560548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  data: {fileID: 11400000, guid: f50e10146bfb45245914a10fc4cee82d, type: 2}
-  shakerTopPosition: {fileID: 538420245}
-  moveSpeed: 100
-  tiltAngle: 100
-  tiltDuration: 0.3
-  pourDuration: 0.5
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  hoverSpeed: 12
 --- !u!61 &215560553
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -399,6 +429,82 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.11, y: 0.29}
   m_EdgeRadius: 0
+--- !u!114 &215560554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215560548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  minThrowSpeed: 3
+  freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders: []
+  tapPixelThreshold: 12
+--- !u!50 &215560555
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215560548}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &215560556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215560548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca1eb45fcfece5428ca592942dac03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientPourController
+  ingredientData: {fileID: 11400000, guid: f50e10146bfb45245914a10fc4cee82d, type: 2}
+  maxPourAngle: 120
+  pourDragRange: 3
+  invertDrag: 0
+  hoverSortingOrder: 51
+--- !u!114 &215560557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215560548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
 --- !u!1 &272377589
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,8 +516,11 @@ GameObject:
   - component: {fileID: 272377590}
   - component: {fileID: 272377591}
   - component: {fileID: 272377594}
-  - component: {fileID: 272377593}
   - component: {fileID: 272377592}
+  - component: {fileID: 272377596}
+  - component: {fileID: 272377595}
+  - component: {fileID: 272377597}
+  - component: {fileID: 272377598}
   m_Layer: 0
   m_Name: 5_17
   m_TagString: Untagged
@@ -507,6 +616,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
   liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
   highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  sourceIngredient: {fileID: 0}
   spoutLocalOffset: {x: 0, y: 0.1}
   flowThreshold: 50
   maxFlowAngle: 100
@@ -520,28 +630,6 @@ MonoBehaviour:
   gravity: 8
   trailLength: 8
   trailSizeRatio: 0.7
---- !u!114 &272377593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 272377589}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  data: {fileID: 11400000, guid: 42773bb74901e654798876a34ecf11ec, type: 2}
-  shakerTopPosition: {fileID: 538420245}
-  moveSpeed: 100
-  tiltAngle: 100
-  tiltDuration: 0.3
-  pourDuration: 0.5
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  hoverSpeed: 12
 --- !u!61 &272377594
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -588,6 +676,82 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.1, y: 0.24}
   m_EdgeRadius: 0
+--- !u!114 &272377595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272377589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  minThrowSpeed: 3
+  freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders: []
+  tapPixelThreshold: 12
+--- !u!50 &272377596
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272377589}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &272377597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272377589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca1eb45fcfece5428ca592942dac03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientPourController
+  ingredientData: {fileID: 11400000, guid: 42773bb74901e654798876a34ecf11ec, type: 2}
+  maxPourAngle: 120
+  pourDragRange: 3
+  invertDrag: 0
+  hoverSortingOrder: 51
+--- !u!114 &272377598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272377589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
 --- !u!1 &288632801
 GameObject:
   m_ObjectHideFlags: 0
@@ -660,8 +824,8 @@ Transform:
   m_GameObject: {fileID: 288632801}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.58, y: -6.83, z: 0}
-  m_LocalScale: {x: 13.375, y: 1, z: 1}
+  m_LocalPosition: {x: 0.58, y: -7.15, z: 0}
+  m_LocalScale: {x: 13.375, y: 0.54167, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 806347242}
@@ -678,6 +842,7 @@ GameObject:
   m_Component:
   - component: {fileID: 304973728}
   - component: {fileID: 304973729}
+  - component: {fileID: 304973730}
   m_Layer: 7
   m_Name: Cocktail
   m_TagString: Untagged
@@ -694,7 +859,7 @@ Transform:
   m_GameObject: {fileID: 304973723}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.11, y: -5.57, z: 0}
+  m_LocalPosition: {x: 0.11, y: -5.76, z: 0}
   m_LocalScale: {x: 5.54385, y: 5.54385, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -719,6 +884,18 @@ MonoBehaviour:
   margaritaPrefab: {fileID: 8336758801194401979, guid: 96ccc3894089cab438d4bb3a9068374c, type: 3}
   currentGlassType: 0
   glassHolder: {fileID: 304973728}
+--- !u!114 &304973730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304973723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
 --- !u!1 &335924591
 GameObject:
   m_ObjectHideFlags: 0
@@ -820,6 +997,8 @@ GameObject:
   m_Component:
   - component: {fileID: 342558414}
   - component: {fileID: 342558413}
+  - component: {fileID: 342558416}
+  - component: {fileID: 342558415}
   m_Layer: 0
   m_Name: Ring
   m_TagString: Untagged
@@ -901,6 +1080,64 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &342558415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342558412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f44e3625ae504747bf49af03a63b77d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BellController
+--- !u!61 &342558416
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342558412}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.21, y: 0.22}
+    newSize: {x: 0.21, y: 0.22}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.21, y: 0.22}
+  m_EdgeRadius: 0
 --- !u!1 &376611096
 GameObject:
   m_ObjectHideFlags: 0
@@ -912,8 +1149,11 @@ GameObject:
   - component: {fileID: 376611097}
   - component: {fileID: 376611098}
   - component: {fileID: 376611101}
-  - component: {fileID: 376611100}
   - component: {fileID: 376611099}
+  - component: {fileID: 376611103}
+  - component: {fileID: 376611102}
+  - component: {fileID: 376611104}
+  - component: {fileID: 376611105}
   m_Layer: 0
   m_Name: 5_9
   m_TagString: Untagged
@@ -1009,6 +1249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
   liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
   highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  sourceIngredient: {fileID: 0}
   spoutLocalOffset: {x: 0, y: 0.1}
   flowThreshold: 50
   maxFlowAngle: 100
@@ -1022,28 +1263,6 @@ MonoBehaviour:
   gravity: 8
   trailLength: 8
   trailSizeRatio: 0.7
---- !u!114 &376611100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 376611096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  data: {fileID: 11400000, guid: 29bd14c84cafeb8418ab116c8593b60c, type: 2}
-  shakerTopPosition: {fileID: 538420245}
-  moveSpeed: 100
-  tiltAngle: 100
-  tiltDuration: 0.3
-  pourDuration: 0.5
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  hoverSpeed: 12
 --- !u!61 &376611101
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1090,6 +1309,82 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.1, y: 0.23}
   m_EdgeRadius: 0
+--- !u!114 &376611102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376611096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  minThrowSpeed: 3
+  freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders: []
+  tapPixelThreshold: 12
+--- !u!50 &376611103
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376611096}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &376611104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376611096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca1eb45fcfece5428ca592942dac03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientPourController
+  ingredientData: {fileID: 11400000, guid: 29bd14c84cafeb8418ab116c8593b60c, type: 2}
+  maxPourAngle: 120
+  pourDragRange: 3
+  invertDrag: 0
+  hoverSortingOrder: 51
+--- !u!114 &376611105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376611096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
 --- !u!1 &408099313
 GameObject:
   m_ObjectHideFlags: 0
@@ -1101,8 +1396,11 @@ GameObject:
   - component: {fileID: 408099314}
   - component: {fileID: 408099315}
   - component: {fileID: 408099318}
-  - component: {fileID: 408099317}
   - component: {fileID: 408099316}
+  - component: {fileID: 408099320}
+  - component: {fileID: 408099319}
+  - component: {fileID: 408099321}
+  - component: {fileID: 408099322}
   m_Layer: 0
   m_Name: 5_15
   m_TagString: Untagged
@@ -1198,6 +1496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
   liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
   highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  sourceIngredient: {fileID: 0}
   spoutLocalOffset: {x: 0, y: 0.15}
   flowThreshold: 50
   maxFlowAngle: 100
@@ -1211,28 +1510,6 @@ MonoBehaviour:
   gravity: 8
   trailLength: 8
   trailSizeRatio: 0.7
---- !u!114 &408099317
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 408099313}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  data: {fileID: 11400000, guid: 9572d97e6b7f7a0449c621e1ad1ca738, type: 2}
-  shakerTopPosition: {fileID: 538420245}
-  moveSpeed: 100
-  tiltAngle: 100
-  tiltDuration: 0.3
-  pourDuration: 0.5
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  hoverSpeed: 12
 --- !u!61 &408099318
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1279,6 +1556,82 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.1, y: 0.34}
   m_EdgeRadius: 0
+--- !u!114 &408099319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408099313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  minThrowSpeed: 3
+  freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders: []
+  tapPixelThreshold: 12
+--- !u!50 &408099320
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408099313}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &408099321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408099313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca1eb45fcfece5428ca592942dac03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientPourController
+  ingredientData: {fileID: 11400000, guid: 9572d97e6b7f7a0449c621e1ad1ca738, type: 2}
+  maxPourAngle: 120
+  pourDragRange: 3
+  invertDrag: 0
+  hoverSortingOrder: 51
+--- !u!114 &408099322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408099313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
 --- !u!1 &440121932
 GameObject:
   m_ObjectHideFlags: 0
@@ -1290,8 +1643,11 @@ GameObject:
   - component: {fileID: 440121933}
   - component: {fileID: 440121934}
   - component: {fileID: 440121937}
-  - component: {fileID: 440121936}
   - component: {fileID: 440121935}
+  - component: {fileID: 440121939}
+  - component: {fileID: 440121938}
+  - component: {fileID: 440121940}
+  - component: {fileID: 440121941}
   m_Layer: 0
   m_Name: 5_8
   m_TagString: Untagged
@@ -1387,6 +1743,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
   liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
   highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  sourceIngredient: {fileID: 0}
   spoutLocalOffset: {x: 0, y: 0.1}
   flowThreshold: 50
   maxFlowAngle: 100
@@ -1400,28 +1757,6 @@ MonoBehaviour:
   gravity: 8
   trailLength: 8
   trailSizeRatio: 0.7
---- !u!114 &440121936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 440121932}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  data: {fileID: 11400000, guid: c1a0ff47cd5a8f24094afe399d305bf2, type: 2}
-  shakerTopPosition: {fileID: 538420245}
-  moveSpeed: 100
-  tiltAngle: 100
-  tiltDuration: 0.3
-  pourDuration: 0.5
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  hoverSpeed: 12
 --- !u!61 &440121937
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1468,6 +1803,133 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.07, y: 0.16}
   m_EdgeRadius: 0
+--- !u!114 &440121938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440121932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  minThrowSpeed: 3
+  freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders: []
+  tapPixelThreshold: 12
+--- !u!50 &440121939
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440121932}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &440121940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440121932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca1eb45fcfece5428ca592942dac03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientPourController
+  ingredientData: {fileID: 11400000, guid: c1a0ff47cd5a8f24094afe399d305bf2, type: 2}
+  maxPourAngle: 120
+  pourDragRange: 3
+  invertDrag: 0
+  hoverSortingOrder: 51
+--- !u!114 &440121941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440121932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
+--- !u!1 &484421603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 484421605}
+  - component: {fileID: 484421604}
+  m_Layer: 0
+  m_Name: RecipeChecker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &484421604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484421603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b545af6ef353b4080597b6fe193b09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RecipeChecker
+  targetIndex: 0
+  tolerancePercent: 8
+  minTotalAmount: 5
+  ignoreExtraBelowPercent: 3
+  checkGlass: 1
+  checkIce: 1
+  showUI: 1
+--- !u!4 &484421605
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484421603}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.56915, y: -2.8117, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &495711643
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,6 +1942,9 @@ GameObject:
   - component: {fileID: 495711645}
   - component: {fileID: 495711644}
   - component: {fileID: 495711647}
+  - component: {fileID: 495711649}
+  - component: {fileID: 495711648}
+  - component: {fileID: 495711650}
   m_Layer: 0
   m_Name: Shaker_Head
   m_TagString: Untagged
@@ -1517,7 +1982,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -1620,8 +2085,66 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShakerLidController
   shakerBody: {fileID: 699535029}
-  worldOffset: {x: 1.5, y: -0.8, z: 0}
-  fixedWorldPosition: {x: 0, y: 0, z: 0}
+  closeDistance: 1.5
+--- !u!114 &495711648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495711643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  minThrowSpeed: 3
+  freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders: []
+  tapPixelThreshold: 12
+--- !u!50 &495711649
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495711643}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &495711650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495711643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
 --- !u!1 &518841122
 GameObject:
   m_ObjectHideFlags: 0
@@ -1850,6 +2373,84 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &531748527
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 531748528}
+  - component: {fileID: 531748529}
+  m_Layer: 6
+  m_Name: Head
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &531748528
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 531748527}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.135, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 699535029}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &531748529
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 531748527}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.18, y: 0.14}
+  m_EdgeRadius: 0
 --- !u!1 &538420244
 GameObject:
   m_ObjectHideFlags: 0
@@ -1892,8 +2493,11 @@ GameObject:
   - component: {fileID: 571889854}
   - component: {fileID: 571889858}
   - component: {fileID: 571889857}
-  - component: {fileID: 571889856}
   - component: {fileID: 571889855}
+  - component: {fileID: 571889860}
+  - component: {fileID: 571889859}
+  - component: {fileID: 571889861}
+  - component: {fileID: 571889862}
   m_Layer: 0
   m_Name: 5_0
   m_TagString: Untagged
@@ -1930,6 +2534,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
   liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
   highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  sourceIngredient: {fileID: 0}
   spoutLocalOffset: {x: 0, y: 0.15}
   flowThreshold: 50
   maxFlowAngle: 100
@@ -1943,28 +2548,6 @@ MonoBehaviour:
   gravity: 5
   trailLength: 8
   trailSizeRatio: 0.7
---- !u!114 &571889856
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 571889853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  data: {fileID: 11400000, guid: ad9514a485fbf274bb6e294e1a04d4be, type: 2}
-  shakerTopPosition: {fileID: 538420245}
-  moveSpeed: 100
-  tiltAngle: 100
-  tiltDuration: 0.3
-  pourDuration: 0.5
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  hoverSpeed: 12
 --- !u!61 &571889857
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1995,7 +2578,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -2070,6 +2653,82 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &571889859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571889853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  minThrowSpeed: 3
+  freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders: []
+  tapPixelThreshold: 12
+--- !u!50 &571889860
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571889853}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &571889861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571889853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca1eb45fcfece5428ca592942dac03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientPourController
+  ingredientData: {fileID: 11400000, guid: ad9514a485fbf274bb6e294e1a04d4be, type: 2}
+  maxPourAngle: 120
+  pourDragRange: 3
+  invertDrag: 0
+  hoverSortingOrder: 51
+--- !u!114 &571889862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571889853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -2322,8 +2981,11 @@ GameObject:
   - component: {fileID: 696083265}
   - component: {fileID: 696083269}
   - component: {fileID: 696083268}
-  - component: {fileID: 696083267}
   - component: {fileID: 696083266}
+  - component: {fileID: 696083271}
+  - component: {fileID: 696083270}
+  - component: {fileID: 696083272}
+  - component: {fileID: 696083273}
   m_Layer: 0
   m_Name: 5_4
   m_TagString: Untagged
@@ -2360,6 +3022,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
   liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
   highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  sourceIngredient: {fileID: 0}
   spoutLocalOffset: {x: 0, y: 0.1}
   flowThreshold: 50
   maxFlowAngle: 100
@@ -2373,28 +3036,6 @@ MonoBehaviour:
   gravity: 5
   trailLength: 8
   trailSizeRatio: 0.7
---- !u!114 &696083267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 696083264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  data: {fileID: 11400000, guid: f21ac185a662d7e45bba1a34917de9c0, type: 2}
-  shakerTopPosition: {fileID: 538420245}
-  moveSpeed: 100
-  tiltAngle: 100
-  tiltDuration: 0.3
-  pourDuration: 0.5
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  hoverSpeed: 12
 --- !u!61 &696083268
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2500,6 +3141,82 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &696083270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696083264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  minThrowSpeed: 3
+  freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders: []
+  tapPixelThreshold: 12
+--- !u!50 &696083271
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696083264}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &696083272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696083264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca1eb45fcfece5428ca592942dac03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientPourController
+  ingredientData: {fileID: 11400000, guid: f21ac185a662d7e45bba1a34917de9c0, type: 2}
+  maxPourAngle: 120
+  pourDragRange: 3
+  invertDrag: 0
+  hoverSortingOrder: 51
+--- !u!114 &696083273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696083264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
 --- !u!1 &699535024
 GameObject:
   m_ObjectHideFlags: 0
@@ -2514,6 +3231,9 @@ GameObject:
   - component: {fileID: 699535026}
   - component: {fileID: 699535030}
   - component: {fileID: 699535032}
+  - component: {fileID: 699535033}
+  - component: {fileID: 699535034}
+  - component: {fileID: 699535035}
   m_Layer: 6
   m_Name: Shaker2
   m_TagString: Untagged
@@ -2583,16 +3303,13 @@ MonoBehaviour:
   separatedSprite: {fileID: -5353857308668149116, guid: 9ccf1dfd11afe51439b9ddf187f85976, type: 3}
   combinedSprite: {fileID: 1018008714705218092, guid: 9ccf1dfd11afe51439b9ddf187f85976, type: 3}
   lidObject: {fileID: 495711643}
-  shakeDuration: 1
-  shakeAmount: 0.2
-  shakeFrequency: 30
-  glassPosition: {fileID: 2003997504}
-  pourTiltAngle: 100
-  pourDuration: 1.5
-  forceMultiplier: 10
-  maxDragDistance: 3
-  minDragDistance: 0.5
+  lidCollider: {fileID: 531748529}
+  shakeDistanceNeeded: 8
+  pourLiftRange: 2
+  maxPourAngle: 120
+  pourTimeToComplete: 2
   currentMode: 0
+  shakeComplete: 0
 --- !u!212 &699535028
 SpriteRenderer:
   serializedVersion: 2
@@ -2669,6 +3386,7 @@ Transform:
   - {fileID: 687173356}
   - {fileID: 1328556417}
   - {fileID: 880863156}
+  - {fileID: 531748528}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &699535030
@@ -2712,6 +3430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
   liquidColor: {r: 0.090196095, g: 0.83137256, b: 0.29831377, a: 1}
   highlightColor: {r: 0, g: 1, b: 0.26666784, a: 0.7}
+  sourceIngredient: {fileID: 0}
   spoutLocalOffset: {x: -0.07, y: 0.1}
   flowThreshold: 50
   maxFlowAngle: 100
@@ -2725,6 +3444,52 @@ MonoBehaviour:
   gravity: 8
   trailLength: 8
   trailSizeRatio: 0.7
+--- !u!114 &699535033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699535024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  minThrowSpeed: 3
+  freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders:
+  - {fileID: 531748529}
+  tapPixelThreshold: 12
+--- !u!114 &699535034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699535024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
+--- !u!114 &699535035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699535024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d40a84373b4ace543ad6539f0ca28670, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShakerCatcher
+  amountPerDrop: 1
 --- !u!1 &806347241
 GameObject:
   m_ObjectHideFlags: 0
@@ -2814,8 +3579,11 @@ GameObject:
   - component: {fileID: 866643015}
   - component: {fileID: 866643016}
   - component: {fileID: 866643019}
-  - component: {fileID: 866643018}
   - component: {fileID: 866643017}
+  - component: {fileID: 866643021}
+  - component: {fileID: 866643020}
+  - component: {fileID: 866643022}
+  - component: {fileID: 866643023}
   m_Layer: 0
   m_Name: 5_12
   m_TagString: Untagged
@@ -2911,6 +3679,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
   liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
   highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  sourceIngredient: {fileID: 0}
   spoutLocalOffset: {x: 0, y: 0.1}
   flowThreshold: 50
   maxFlowAngle: 100
@@ -2924,28 +3693,6 @@ MonoBehaviour:
   gravity: 8
   trailLength: 8
   trailSizeRatio: 0.7
---- !u!114 &866643018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 866643014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  data: {fileID: 11400000, guid: 9d78623080a636d4988d95c3abcdf659, type: 2}
-  shakerTopPosition: {fileID: 538420245}
-  moveSpeed: 100
-  tiltAngle: 100
-  tiltDuration: 0.3
-  pourDuration: 0.5
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  hoverSpeed: 12
 --- !u!61 &866643019
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2992,6 +3739,82 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.07, y: 0.21}
   m_EdgeRadius: 0
+--- !u!114 &866643020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866643014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  minThrowSpeed: 3
+  freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders: []
+  tapPixelThreshold: 12
+--- !u!50 &866643021
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866643014}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &866643022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866643014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca1eb45fcfece5428ca592942dac03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientPourController
+  ingredientData: {fileID: 11400000, guid: 9d78623080a636d4988d95c3abcdf659, type: 2}
+  maxPourAngle: 120
+  pourDragRange: 3
+  invertDrag: 0
+  hoverSortingOrder: 51
+--- !u!114 &866643023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866643014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
 --- !u!1 &867956562
 GameObject:
   m_ObjectHideFlags: 0
@@ -3003,8 +3826,11 @@ GameObject:
   - component: {fileID: 867956563}
   - component: {fileID: 867956564}
   - component: {fileID: 867956567}
-  - component: {fileID: 867956566}
   - component: {fileID: 867956565}
+  - component: {fileID: 867956569}
+  - component: {fileID: 867956568}
+  - component: {fileID: 867956570}
+  - component: {fileID: 867956571}
   m_Layer: 0
   m_Name: 5_11
   m_TagString: Untagged
@@ -3100,6 +3926,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
   liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
   highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  sourceIngredient: {fileID: 0}
   spoutLocalOffset: {x: 0, y: 0.1}
   flowThreshold: 50
   maxFlowAngle: 100
@@ -3113,28 +3940,6 @@ MonoBehaviour:
   gravity: 8
   trailLength: 8
   trailSizeRatio: 0.7
---- !u!114 &867956566
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867956562}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  data: {fileID: 11400000, guid: ee7b4ebff92579f4595c0fabcbbd775c, type: 2}
-  shakerTopPosition: {fileID: 538420245}
-  moveSpeed: 100
-  tiltAngle: 100
-  tiltDuration: 0.3
-  pourDuration: 0.5
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  hoverSpeed: 12
 --- !u!61 &867956567
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3181,6 +3986,82 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.07, y: 0.2}
   m_EdgeRadius: 0
+--- !u!114 &867956568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867956562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  minThrowSpeed: 3
+  freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders: []
+  tapPixelThreshold: 12
+--- !u!50 &867956569
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867956562}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &867956570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867956562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca1eb45fcfece5428ca592942dac03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientPourController
+  ingredientData: {fileID: 11400000, guid: ee7b4ebff92579f4595c0fabcbbd775c, type: 2}
+  maxPourAngle: 120
+  pourDragRange: 3
+  invertDrag: 0
+  hoverSortingOrder: 51
+--- !u!114 &867956571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867956562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
 --- !u!1 &880863155
 GameObject:
   m_ObjectHideFlags: 0
@@ -3360,6 +4241,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1032729939}
   - component: {fileID: 1032729938}
+  - component: {fileID: 1032729940}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -3441,6 +4323,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1032729940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1032729937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e361364fba395044791d14e32c8cbec0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SlideInOut
+  enterFrom: 1
+  offscreenDistance: 7
+  moveSpeed: 12
+  arriveThreshold: 0.05
+  deactivateWhenHidden: 1
+  state: 0
 --- !u!1 &1039108895
 GameObject:
   m_ObjectHideFlags: 0
@@ -3452,8 +4352,11 @@ GameObject:
   - component: {fileID: 1039108896}
   - component: {fileID: 1039108897}
   - component: {fileID: 1039108900}
-  - component: {fileID: 1039108899}
   - component: {fileID: 1039108898}
+  - component: {fileID: 1039108902}
+  - component: {fileID: 1039108901}
+  - component: {fileID: 1039108903}
+  - component: {fileID: 1039108904}
   m_Layer: 0
   m_Name: 5_14
   m_TagString: Untagged
@@ -3549,6 +4452,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
   liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
   highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  sourceIngredient: {fileID: 0}
   spoutLocalOffset: {x: 0, y: 0.15}
   flowThreshold: 50
   maxFlowAngle: 100
@@ -3562,28 +4466,6 @@ MonoBehaviour:
   gravity: 8
   trailLength: 8
   trailSizeRatio: 0.7
---- !u!114 &1039108899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1039108895}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  data: {fileID: 11400000, guid: 03919420b3473c44a946e164fc72c26a, type: 2}
-  shakerTopPosition: {fileID: 538420245}
-  moveSpeed: 100
-  tiltAngle: 100
-  tiltDuration: 0.3
-  pourDuration: 0.5
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  hoverSpeed: 12
 --- !u!61 &1039108900
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3630,6 +4512,82 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.1, y: 0.34}
   m_EdgeRadius: 0
+--- !u!114 &1039108901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039108895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  minThrowSpeed: 3
+  freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders: []
+  tapPixelThreshold: 12
+--- !u!50 &1039108902
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039108895}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &1039108903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039108895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca1eb45fcfece5428ca592942dac03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientPourController
+  ingredientData: {fileID: 11400000, guid: 03919420b3473c44a946e164fc72c26a, type: 2}
+  maxPourAngle: 120
+  pourDragRange: 3
+  invertDrag: 0
+  hoverSortingOrder: 51
+--- !u!114 &1039108904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039108895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
 --- !u!1 &1040846103
 GameObject:
   m_ObjectHideFlags: 0
@@ -3656,7 +4614,7 @@ Transform:
   m_GameObject: {fileID: 1040846103}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.4926, y: 0.098, z: 0}
+  m_LocalPosition: {x: -0.4926, y: 0.14, z: 0}
   m_LocalScale: {x: 0.019444471, y: 1.5972486, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3708,6 +4666,84 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &1065833612
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1065833614}
+  - component: {fileID: 1065833613}
+  m_Layer: 0
+  m_Name: Collider (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!61 &1065833613
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065833612}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!4 &1065833614
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065833612}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.73, y: -10.16, z: 0}
+  m_LocalScale: {x: 15.046875, y: 0.54167, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1085386910
 GameObject:
   m_ObjectHideFlags: 0
@@ -3719,8 +4755,11 @@ GameObject:
   - component: {fileID: 1085386911}
   - component: {fileID: 1085386912}
   - component: {fileID: 1085386915}
-  - component: {fileID: 1085386914}
   - component: {fileID: 1085386913}
+  - component: {fileID: 1085386917}
+  - component: {fileID: 1085386916}
+  - component: {fileID: 1085386918}
+  - component: {fileID: 1085386919}
   m_Layer: 0
   m_Name: 5_20
   m_TagString: Untagged
@@ -3816,6 +4855,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
   liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
   highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  sourceIngredient: {fileID: 0}
   spoutLocalOffset: {x: 0, y: 0.1}
   flowThreshold: 50
   maxFlowAngle: 100
@@ -3829,28 +4869,6 @@ MonoBehaviour:
   gravity: 8
   trailLength: 8
   trailSizeRatio: 0.7
---- !u!114 &1085386914
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1085386910}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  data: {fileID: 11400000, guid: 71eeaad20cd4d794c931dbeece294d31, type: 2}
-  shakerTopPosition: {fileID: 538420245}
-  moveSpeed: 100
-  tiltAngle: 100
-  tiltDuration: 0.3
-  pourDuration: 0.5
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  hoverSpeed: 12
 --- !u!61 &1085386915
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3897,6 +4915,82 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.08, y: 0.2}
   m_EdgeRadius: 0
+--- !u!114 &1085386916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085386910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  minThrowSpeed: 3
+  freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders: []
+  tapPixelThreshold: 12
+--- !u!50 &1085386917
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085386910}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &1085386918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085386910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca1eb45fcfece5428ca592942dac03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientPourController
+  ingredientData: {fileID: 11400000, guid: 71eeaad20cd4d794c931dbeece294d31, type: 2}
+  maxPourAngle: 120
+  pourDragRange: 3
+  invertDrag: 0
+  hoverSortingOrder: 51
+--- !u!114 &1085386919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085386910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
 --- !u!1 &1226956978
 GameObject:
   m_ObjectHideFlags: 0
@@ -3908,8 +5002,11 @@ GameObject:
   - component: {fileID: 1226956979}
   - component: {fileID: 1226956980}
   - component: {fileID: 1226956983}
-  - component: {fileID: 1226956982}
   - component: {fileID: 1226956981}
+  - component: {fileID: 1226956985}
+  - component: {fileID: 1226956984}
+  - component: {fileID: 1226956986}
+  - component: {fileID: 1226956987}
   m_Layer: 0
   m_Name: 5_21
   m_TagString: Untagged
@@ -4005,6 +5102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
   liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
   highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  sourceIngredient: {fileID: 0}
   spoutLocalOffset: {x: 0, y: 0.1}
   flowThreshold: 50
   maxFlowAngle: 100
@@ -4018,28 +5116,6 @@ MonoBehaviour:
   gravity: 8
   trailLength: 8
   trailSizeRatio: 0.7
---- !u!114 &1226956982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1226956978}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  data: {fileID: 11400000, guid: c6786100d2aada24bb8bfb0e8c4a6d3b, type: 2}
-  shakerTopPosition: {fileID: 538420245}
-  moveSpeed: 100
-  tiltAngle: 100
-  tiltDuration: 0.3
-  pourDuration: 0.5
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  hoverSpeed: 12
 --- !u!61 &1226956983
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4086,6 +5162,82 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.06, y: 0.21}
   m_EdgeRadius: 0
+--- !u!114 &1226956984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226956978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  minThrowSpeed: 3
+  freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders: []
+  tapPixelThreshold: 12
+--- !u!50 &1226956985
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226956978}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &1226956986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226956978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca1eb45fcfece5428ca592942dac03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientPourController
+  ingredientData: {fileID: 11400000, guid: c6786100d2aada24bb8bfb0e8c4a6d3b, type: 2}
+  maxPourAngle: 120
+  pourDragRange: 3
+  invertDrag: 0
+  hoverSortingOrder: 51
+--- !u!114 &1226956987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226956978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
 --- !u!1 &1241196505
 GameObject:
   m_ObjectHideFlags: 0
@@ -4235,8 +5387,11 @@ GameObject:
   - component: {fileID: 1276447194}
   - component: {fileID: 1276447195}
   - component: {fileID: 1276447198}
-  - component: {fileID: 1276447197}
   - component: {fileID: 1276447196}
+  - component: {fileID: 1276447200}
+  - component: {fileID: 1276447199}
+  - component: {fileID: 1276447201}
+  - component: {fileID: 1276447202}
   m_Layer: 0
   m_Name: 5_13
   m_TagString: Untagged
@@ -4332,6 +5487,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
   liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
   highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  sourceIngredient: {fileID: 0}
   spoutLocalOffset: {x: 0, y: 0.1}
   flowThreshold: 50
   maxFlowAngle: 100
@@ -4345,28 +5501,6 @@ MonoBehaviour:
   gravity: 8
   trailLength: 8
   trailSizeRatio: 0.7
---- !u!114 &1276447197
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1276447193}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  data: {fileID: 11400000, guid: 30a3a8e2dc720114c8bfa54182fd7aae, type: 2}
-  shakerTopPosition: {fileID: 538420245}
-  moveSpeed: 100
-  tiltAngle: 100
-  tiltDuration: 0.3
-  pourDuration: 0.5
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  hoverSpeed: 12
 --- !u!61 &1276447198
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4413,6 +5547,82 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.08, y: 0.24}
   m_EdgeRadius: 0
+--- !u!114 &1276447199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276447193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  minThrowSpeed: 3
+  freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders: []
+  tapPixelThreshold: 12
+--- !u!50 &1276447200
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276447193}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &1276447201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276447193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca1eb45fcfece5428ca592942dac03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientPourController
+  ingredientData: {fileID: 11400000, guid: 30a3a8e2dc720114c8bfa54182fd7aae, type: 2}
+  maxPourAngle: 120
+  pourDragRange: 3
+  invertDrag: 0
+  hoverSortingOrder: 51
+--- !u!114 &1276447202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276447193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
 --- !u!1 &1328556416
 GameObject:
   m_ObjectHideFlags: 0
@@ -4438,13 +5648,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1328556416}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.7167158, w: 0.6973654}
-  m_LocalPosition: {x: -0.0092, y: 0.0479, z: 0}
-  m_LocalScale: {x: 0.0083321, y: 0.196353, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0.0007, y: 0.0479, z: 0}
+  m_LocalScale: {x: 0.0083321, y: 0.19, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 699535029}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 91.568}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!61 &1328556418
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4684,8 +5894,11 @@ GameObject:
   - component: {fileID: 1457112136}
   - component: {fileID: 1457112140}
   - component: {fileID: 1457112139}
-  - component: {fileID: 1457112138}
   - component: {fileID: 1457112137}
+  - component: {fileID: 1457112142}
+  - component: {fileID: 1457112141}
+  - component: {fileID: 1457112143}
+  - component: {fileID: 1457112144}
   m_Layer: 0
   m_Name: 5_2
   m_TagString: Untagged
@@ -4722,6 +5935,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
   liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
   highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  sourceIngredient: {fileID: 0}
   spoutLocalOffset: {x: 0, y: 0.1}
   flowThreshold: 30
   maxFlowAngle: 90
@@ -4735,28 +5949,6 @@ MonoBehaviour:
   gravity: 5
   trailLength: 8
   trailSizeRatio: 0.7
---- !u!114 &1457112138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1457112135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  data: {fileID: 11400000, guid: 7d709e871550fd04e9f048b8cf3aa462, type: 2}
-  shakerTopPosition: {fileID: 538420245}
-  moveSpeed: 100
-  tiltAngle: 100
-  tiltDuration: 0.3
-  pourDuration: 0.5
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  hoverSpeed: 12
 --- !u!61 &1457112139
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4862,6 +6054,82 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1457112141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457112135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  minThrowSpeed: 3
+  freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders: []
+  tapPixelThreshold: 12
+--- !u!50 &1457112142
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457112135}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &1457112143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457112135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca1eb45fcfece5428ca592942dac03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientPourController
+  ingredientData: {fileID: 11400000, guid: 7d709e871550fd04e9f048b8cf3aa462, type: 2}
+  maxPourAngle: 120
+  pourDragRange: 3
+  invertDrag: 0
+  hoverSortingOrder: 51
+--- !u!114 &1457112144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457112135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
 --- !u!1 &1457416428
 GameObject:
   m_ObjectHideFlags: 0
@@ -4873,8 +6141,11 @@ GameObject:
   - component: {fileID: 1457416429}
   - component: {fileID: 1457416430}
   - component: {fileID: 1457416433}
-  - component: {fileID: 1457416432}
   - component: {fileID: 1457416431}
+  - component: {fileID: 1457416435}
+  - component: {fileID: 1457416434}
+  - component: {fileID: 1457416436}
+  - component: {fileID: 1457416437}
   m_Layer: 0
   m_Name: 5_18
   m_TagString: Untagged
@@ -4970,6 +6241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
   liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
   highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  sourceIngredient: {fileID: 0}
   spoutLocalOffset: {x: 0, y: 0.15}
   flowThreshold: 50
   maxFlowAngle: 100
@@ -4983,28 +6255,6 @@ MonoBehaviour:
   gravity: 8
   trailLength: 8
   trailSizeRatio: 0.7
---- !u!114 &1457416432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1457416428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  data: {fileID: 11400000, guid: 4aecd6b344ddeec42b6144904bac4c0b, type: 2}
-  shakerTopPosition: {fileID: 538420245}
-  moveSpeed: 100
-  tiltAngle: 100
-  tiltDuration: 0.3
-  pourDuration: 0.5
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  hoverSpeed: 12
 --- !u!61 &1457416433
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5051,6 +6301,82 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.09, y: 0.28}
   m_EdgeRadius: 0
+--- !u!114 &1457416434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457416428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  minThrowSpeed: 3
+  freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders: []
+  tapPixelThreshold: 12
+--- !u!50 &1457416435
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457416428}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &1457416436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457416428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca1eb45fcfece5428ca592942dac03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientPourController
+  ingredientData: {fileID: 11400000, guid: 4aecd6b344ddeec42b6144904bac4c0b, type: 2}
+  maxPourAngle: 120
+  pourDragRange: 3
+  invertDrag: 0
+  hoverSortingOrder: 51
+--- !u!114 &1457416437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457416428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
 --- !u!1 &1564758316
 GameObject:
   m_ObjectHideFlags: 0
@@ -5062,8 +6388,11 @@ GameObject:
   - component: {fileID: 1564758317}
   - component: {fileID: 1564758318}
   - component: {fileID: 1564758321}
-  - component: {fileID: 1564758320}
   - component: {fileID: 1564758319}
+  - component: {fileID: 1564758323}
+  - component: {fileID: 1564758322}
+  - component: {fileID: 1564758324}
+  - component: {fileID: 1564758325}
   m_Layer: 0
   m_Name: 5_16
   m_TagString: Untagged
@@ -5159,6 +6488,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
   liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
   highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  sourceIngredient: {fileID: 0}
   spoutLocalOffset: {x: 0, y: 0.1}
   flowThreshold: 50
   maxFlowAngle: 100
@@ -5172,28 +6502,6 @@ MonoBehaviour:
   gravity: 8
   trailLength: 8
   trailSizeRatio: 0.7
---- !u!114 &1564758320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1564758316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  data: {fileID: 11400000, guid: a58d0067d0fea884a8665d3adaa7a661, type: 2}
-  shakerTopPosition: {fileID: 538420245}
-  moveSpeed: 100
-  tiltAngle: 100
-  tiltDuration: 0.3
-  pourDuration: 0.5
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  hoverSpeed: 12
 --- !u!61 &1564758321
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5240,6 +6548,82 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.07, y: 0.16}
   m_EdgeRadius: 0
+--- !u!114 &1564758322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564758316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  minThrowSpeed: 3
+  freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders: []
+  tapPixelThreshold: 12
+--- !u!50 &1564758323
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564758316}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &1564758324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564758316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca1eb45fcfece5428ca592942dac03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientPourController
+  ingredientData: {fileID: 11400000, guid: a58d0067d0fea884a8665d3adaa7a661, type: 2}
+  maxPourAngle: 120
+  pourDragRange: 3
+  invertDrag: 0
+  hoverSortingOrder: 51
+--- !u!114 &1564758325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564758316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
 --- !u!1 &1613977820
 GameObject:
   m_ObjectHideFlags: 0
@@ -5443,8 +6827,11 @@ GameObject:
   - component: {fileID: 1762846319}
   - component: {fileID: 1762846323}
   - component: {fileID: 1762846322}
-  - component: {fileID: 1762846321}
   - component: {fileID: 1762846320}
+  - component: {fileID: 1762846325}
+  - component: {fileID: 1762846324}
+  - component: {fileID: 1762846326}
+  - component: {fileID: 1762846327}
   m_Layer: 0
   m_Name: 5_3
   m_TagString: Untagged
@@ -5481,6 +6868,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
   liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
   highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  sourceIngredient: {fileID: 0}
   spoutLocalOffset: {x: 0, y: 0.15}
   flowThreshold: 50
   maxFlowAngle: 100
@@ -5494,28 +6882,6 @@ MonoBehaviour:
   gravity: 5
   trailLength: 8
   trailSizeRatio: 0.7
---- !u!114 &1762846321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1762846318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  data: {fileID: 11400000, guid: 310bcb5ed518240439b74783c93ea520, type: 2}
-  shakerTopPosition: {fileID: 538420245}
-  moveSpeed: 100
-  tiltAngle: 100
-  tiltDuration: 0.3
-  pourDuration: 0.5
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  hoverSpeed: 12
 --- !u!61 &1762846322
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5621,6 +6987,82 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1762846324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1762846318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  minThrowSpeed: 3
+  freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders: []
+  tapPixelThreshold: 12
+--- !u!50 &1762846325
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1762846318}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &1762846326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1762846318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca1eb45fcfece5428ca592942dac03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientPourController
+  ingredientData: {fileID: 11400000, guid: 310bcb5ed518240439b74783c93ea520, type: 2}
+  maxPourAngle: 120
+  pourDragRange: 3
+  invertDrag: 0
+  hoverSortingOrder: 51
+--- !u!114 &1762846327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1762846318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
 --- !u!1 &1800061146
 GameObject:
   m_ObjectHideFlags: 0
@@ -5663,8 +7105,11 @@ GameObject:
   - component: {fileID: 1831492561}
   - component: {fileID: 1831492562}
   - component: {fileID: 1831492565}
-  - component: {fileID: 1831492564}
   - component: {fileID: 1831492563}
+  - component: {fileID: 1831492567}
+  - component: {fileID: 1831492566}
+  - component: {fileID: 1831492568}
+  - component: {fileID: 1831492569}
   m_Layer: 0
   m_Name: 5_6
   m_TagString: Untagged
@@ -5760,6 +7205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
   liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
   highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  sourceIngredient: {fileID: 0}
   spoutLocalOffset: {x: 0, y: 0.1}
   flowThreshold: 50
   maxFlowAngle: 100
@@ -5773,28 +7219,6 @@ MonoBehaviour:
   gravity: 8
   trailLength: 8
   trailSizeRatio: 0.7
---- !u!114 &1831492564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1831492560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  data: {fileID: 11400000, guid: 8c96468038d4d0f4a8af2396b5ac42a3, type: 2}
-  shakerTopPosition: {fileID: 538420245}
-  moveSpeed: 100
-  tiltAngle: 100
-  tiltDuration: 0.3
-  pourDuration: 0.5
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  hoverSpeed: 12
 --- !u!61 &1831492565
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5841,6 +7265,82 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.1, y: 0.23}
   m_EdgeRadius: 0
+--- !u!114 &1831492566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831492560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  minThrowSpeed: 3
+  freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders: []
+  tapPixelThreshold: 12
+--- !u!50 &1831492567
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831492560}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &1831492568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831492560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca1eb45fcfece5428ca592942dac03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientPourController
+  ingredientData: {fileID: 11400000, guid: 8c96468038d4d0f4a8af2396b5ac42a3, type: 2}
+  maxPourAngle: 120
+  pourDragRange: 3
+  invertDrag: 0
+  hoverSortingOrder: 51
+--- !u!114 &1831492569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831492560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
 --- !u!1 &1859341580
 GameObject:
   m_ObjectHideFlags: 0
@@ -5852,8 +7352,11 @@ GameObject:
   - component: {fileID: 1859341581}
   - component: {fileID: 1859341585}
   - component: {fileID: 1859341584}
-  - component: {fileID: 1859341583}
   - component: {fileID: 1859341582}
+  - component: {fileID: 1859341587}
+  - component: {fileID: 1859341586}
+  - component: {fileID: 1859341588}
+  - component: {fileID: 1859341589}
   m_Layer: 0
   m_Name: 5_5
   m_TagString: Untagged
@@ -5890,6 +7393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
   liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
   highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  sourceIngredient: {fileID: 0}
   spoutLocalOffset: {x: 0, y: 0.1}
   flowThreshold: 50
   maxFlowAngle: 100
@@ -5903,28 +7407,6 @@ MonoBehaviour:
   gravity: 5
   trailLength: 8
   trailSizeRatio: 0.7
---- !u!114 &1859341583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1859341580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  data: {fileID: 11400000, guid: c6528feb9c6fc984a84eb0e4e70c1756, type: 2}
-  shakerTopPosition: {fileID: 538420245}
-  moveSpeed: 100
-  tiltAngle: 100
-  tiltDuration: 0.3
-  pourDuration: 0.5
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  hoverSpeed: 12
 --- !u!61 &1859341584
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6030,6 +7512,82 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1859341586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859341580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  minThrowSpeed: 3
+  freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders: []
+  tapPixelThreshold: 12
+--- !u!50 &1859341587
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859341580}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &1859341588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859341580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca1eb45fcfece5428ca592942dac03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientPourController
+  ingredientData: {fileID: 11400000, guid: c6528feb9c6fc984a84eb0e4e70c1756, type: 2}
+  maxPourAngle: 120
+  pourDragRange: 3
+  invertDrag: 0
+  hoverSortingOrder: 51
+--- !u!114 &1859341589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859341580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
 --- !u!1 &1897861336
 GameObject:
   m_ObjectHideFlags: 0
@@ -6132,8 +7690,11 @@ GameObject:
   - component: {fileID: 1917662538}
   - component: {fileID: 1917662539}
   - component: {fileID: 1917662542}
-  - component: {fileID: 1917662541}
   - component: {fileID: 1917662540}
+  - component: {fileID: 1917662544}
+  - component: {fileID: 1917662543}
+  - component: {fileID: 1917662545}
+  - component: {fileID: 1917662546}
   m_Layer: 0
   m_Name: 5_10
   m_TagString: Untagged
@@ -6229,6 +7790,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
   liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
   highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  sourceIngredient: {fileID: 0}
   spoutLocalOffset: {x: 0, y: 0.15}
   flowThreshold: 50
   maxFlowAngle: 100
@@ -6242,28 +7804,6 @@ MonoBehaviour:
   gravity: 8
   trailLength: 8
   trailSizeRatio: 0.7
---- !u!114 &1917662541
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1917662537}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  data: {fileID: 11400000, guid: c2f718707fbfa8340901d31b5c1fb4f3, type: 2}
-  shakerTopPosition: {fileID: 538420245}
-  moveSpeed: 100
-  tiltAngle: 100
-  tiltDuration: 0.3
-  pourDuration: 0.5
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  hoverSpeed: 12
 --- !u!61 &1917662542
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6310,6 +7850,82 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.1, y: 0.32}
   m_EdgeRadius: 0
+--- !u!114 &1917662543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917662537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  minThrowSpeed: 3
+  freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders: []
+  tapPixelThreshold: 12
+--- !u!50 &1917662544
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917662537}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &1917662545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917662537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca1eb45fcfece5428ca592942dac03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientPourController
+  ingredientData: {fileID: 11400000, guid: c2f718707fbfa8340901d31b5c1fb4f3, type: 2}
+  maxPourAngle: 120
+  pourDragRange: 3
+  invertDrag: 0
+  hoverSortingOrder: 51
+--- !u!114 &1917662546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917662537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
 --- !u!1 &1937057030
 GameObject:
   m_ObjectHideFlags: 0
@@ -6321,8 +7937,11 @@ GameObject:
   - component: {fileID: 1937057031}
   - component: {fileID: 1937057032}
   - component: {fileID: 1937057035}
-  - component: {fileID: 1937057034}
   - component: {fileID: 1937057033}
+  - component: {fileID: 1937057037}
+  - component: {fileID: 1937057036}
+  - component: {fileID: 1937057038}
+  - component: {fileID: 1937057039}
   m_Layer: 0
   m_Name: 5_22
   m_TagString: Untagged
@@ -6418,6 +8037,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
   liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
   highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  sourceIngredient: {fileID: 0}
   spoutLocalOffset: {x: 0, y: 0.15}
   flowThreshold: 50
   maxFlowAngle: 100
@@ -6431,28 +8051,6 @@ MonoBehaviour:
   gravity: 8
   trailLength: 8
   trailSizeRatio: 0.7
---- !u!114 &1937057034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1937057030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  data: {fileID: 11400000, guid: 2e0cf2ec87a9d604d85a679dfe62ce25, type: 2}
-  shakerTopPosition: {fileID: 538420245}
-  moveSpeed: 100
-  tiltAngle: 100
-  tiltDuration: 0.3
-  pourDuration: 0.5
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  hoverSpeed: 12
 --- !u!61 &1937057035
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6499,6 +8097,82 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.1, y: 0.33}
   m_EdgeRadius: 0
+--- !u!114 &1937057036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937057030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  minThrowSpeed: 3
+  freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders: []
+  tapPixelThreshold: 12
+--- !u!50 &1937057037
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937057030}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &1937057038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937057030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca1eb45fcfece5428ca592942dac03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientPourController
+  ingredientData: {fileID: 11400000, guid: 2e0cf2ec87a9d604d85a679dfe62ce25, type: 2}
+  maxPourAngle: 120
+  pourDragRange: 3
+  invertDrag: 0
+  hoverSortingOrder: 51
+--- !u!114 &1937057039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937057030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
 --- !u!1 &1993789246
 GameObject:
   m_ObjectHideFlags: 0
@@ -6510,8 +8184,11 @@ GameObject:
   - component: {fileID: 1993789247}
   - component: {fileID: 1993789248}
   - component: {fileID: 1993789251}
-  - component: {fileID: 1993789250}
   - component: {fileID: 1993789249}
+  - component: {fileID: 1993789253}
+  - component: {fileID: 1993789252}
+  - component: {fileID: 1993789254}
+  - component: {fileID: 1993789255}
   m_Layer: 0
   m_Name: 5_7
   m_TagString: Untagged
@@ -6607,6 +8284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
   liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
   highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  sourceIngredient: {fileID: 0}
   spoutLocalOffset: {x: 0, y: 0.15}
   flowThreshold: 50
   maxFlowAngle: 100
@@ -6620,28 +8298,6 @@ MonoBehaviour:
   gravity: 8
   trailLength: 8
   trailSizeRatio: 0.7
---- !u!114 &1993789250
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1993789246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  data: {fileID: 11400000, guid: d01bdaee52253cb438ab240831d5f581, type: 2}
-  shakerTopPosition: {fileID: 538420245}
-  moveSpeed: 100
-  tiltAngle: 100
-  tiltDuration: 0.3
-  pourDuration: 0.5
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  hoverSpeed: 12
 --- !u!61 &1993789251
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6688,6 +8344,82 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.1, y: 0.35}
   m_EdgeRadius: 0
+--- !u!114 &1993789252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993789246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  minThrowSpeed: 3
+  freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders: []
+  tapPixelThreshold: 12
+--- !u!50 &1993789253
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993789246}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &1993789254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993789246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca1eb45fcfece5428ca592942dac03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientPourController
+  ingredientData: {fileID: 11400000, guid: d01bdaee52253cb438ab240831d5f581, type: 2}
+  maxPourAngle: 120
+  pourDragRange: 3
+  invertDrag: 0
+  hoverSortingOrder: 51
+--- !u!114 &1993789255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993789246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
 --- !u!1 &2003997503
 GameObject:
   m_ObjectHideFlags: 0
@@ -6729,6 +8461,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2036885229}
   - component: {fileID: 2036885228}
+  - component: {fileID: 2036885230}
   m_Layer: 0
   m_Name: 8_0
   m_TagString: Untagged
@@ -6810,6 +8543,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2036885230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036885227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e361364fba395044791d14e32c8cbec0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SlideInOut
+  enterFrom: 1
+  offscreenDistance: 7
+  moveSpeed: 12
+  arriveThreshold: 0.05
+  deactivateWhenHidden: 1
+  state: 0
 --- !u!1 &2081498161
 GameObject:
   m_ObjectHideFlags: 0
@@ -6821,8 +8572,11 @@ GameObject:
   - component: {fileID: 2081498162}
   - component: {fileID: 2081498166}
   - component: {fileID: 2081498165}
-  - component: {fileID: 2081498164}
   - component: {fileID: 2081498163}
+  - component: {fileID: 2081498168}
+  - component: {fileID: 2081498167}
+  - component: {fileID: 2081498169}
+  - component: {fileID: 2081498170}
   m_Layer: 0
   m_Name: 5_1
   m_TagString: Untagged
@@ -6859,6 +8613,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LiquidPourEffect
   liquidColor: {r: 0.83, g: 0.63, b: 0.09, a: 1}
   highlightColor: {r: 1, g: 0.9, b: 0.59, a: 0.7}
+  sourceIngredient: {fileID: 0}
   spoutLocalOffset: {x: 0, y: 0.15}
   flowThreshold: 50
   maxFlowAngle: 100
@@ -6872,28 +8627,6 @@ MonoBehaviour:
   gravity: 8
   trailLength: 8
   trailSizeRatio: 0.7
---- !u!114 &2081498164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2081498161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4a6da14d46157147aeb1e815533d473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  data: {fileID: 11400000, guid: 3cec783819aafb046bc3afa5326ebf80, type: 2}
-  shakerTopPosition: {fileID: 538420245}
-  moveSpeed: 100
-  tiltAngle: 100
-  tiltDuration: 0.3
-  pourDuration: 0.5
-  hoverLift: 0.2
-  hoverScale: 1.08
-  hoverSortingOrder: 100
-  hoverSpeed: 12
 --- !u!61 &2081498165
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6999,6 +8732,82 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2081498167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2081498161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a0b944a32a7cc468f73d51b1184e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
+  throwVelocityMultiplier: 1
+  maxThrowSpeed: 30
+  minThrowSpeed: 3
+  freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders: []
+  tapPixelThreshold: 12
+--- !u!50 &2081498168
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2081498161}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &2081498169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2081498161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca1eb45fcfece5428ca592942dac03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientPourController
+  ingredientData: {fileID: 11400000, guid: 3cec783819aafb046bc3afa5326ebf80, type: 2}
+  maxPourAngle: 120
+  pourDragRange: 3
+  invertDrag: 0
+  hoverSortingOrder: 51
+--- !u!114 &2081498170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2081498161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c889a7f9d0f4ad349bd56894514d66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableTransform
 --- !u!1 &2134406710
 GameObject:
   m_ObjectHideFlags: 0
@@ -7108,6 +8917,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f21ac185a662d7e45bba1a34917de9c0, type: 2}
   hasIce: 0
   currentGlassType: 0
+  showCompositionUI: 1
 --- !u!4 &2146769660
 Transform:
   m_ObjectHideFlags: 0
@@ -7129,6 +8939,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 619394802}
+  - {fileID: 484421605}
+  - {fileID: 159124110}
   - {fileID: 2146769660}
   - {fileID: 1738374940}
   - {fileID: 518841124}
@@ -7138,6 +8950,7 @@ SceneRoots:
   - {fileID: 2134406711}
   - {fileID: 1331376100}
   - {fileID: 288632803}
+  - {fileID: 1065833614}
   - {fileID: 699535029}
   - {fileID: 1241196507}
   - {fileID: 495711646}
@@ -7148,6 +8961,6 @@ SceneRoots:
   - {fileID: 335924593}
   - {fileID: 1445135046}
   - {fileID: 342558414}
-  - {fileID: 2036885229}
   - {fileID: 895217397}
+  - {fileID: 2036885229}
   - {fileID: 66560937}

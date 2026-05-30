@@ -38,16 +38,13 @@ public class GlassController : MonoBehaviour
 
     void Start()
     {
-        // glassHolder 없으면 자기 자신으로
         if (glassHolder == null) glassHolder = transform;
 
-        // 시작 시 칵테일 잔 생성
         ChangeGlass(GlassType.Cocktail);
     }
 
     void Update()
     {
-        // 날아가는 중이면 키 입력 무시
         if (!isFlying)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1)) ChangeGlass(GlassType.Cocktail);
@@ -57,7 +54,6 @@ public class GlassController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha5)) ChangeGlass(GlassType.Margarita);
         }
         DetectFlying();
-        // 날아가는 중이면 화면 밖 체크
         if (isFlying && currentGlassObject != null)
         {
             CheckIfOutOfScreen();
@@ -68,13 +64,11 @@ public class GlassController : MonoBehaviour
     {
         currentGlassType = type;
 
-        // ★ 기존 잔 제거
         if (currentGlassObject != null)
         {
             Destroy(currentGlassObject);
         }
 
-        // ★ 새 프리팹 생성
         GameObject prefabToSpawn = GetPrefabByType(type);
 
         if (prefabToSpawn != null)
@@ -86,6 +80,14 @@ public class GlassController : MonoBehaviour
         {
             Debug.LogWarning($"⚠️ {type} 프리팹이 연결 안 됨!");
         }
+    }
+
+    // ★ 종 누를 때: 지금 선택된 잔 종류 그대로 깨끗하게 다시 생성 (1번으로 안 돌아감!)
+    public void ResetGlass()
+    {
+        isFlying = false;
+        ChangeGlass(currentGlassType);
+        Debug.Log($"🥃 잔 리셋 (현재 종류 유지: {currentGlassType})");
     }
 
     GameObject GetPrefabByType(GlassType type)
@@ -113,34 +115,31 @@ public class GlassController : MonoBehaviour
         {
             Debug.Log("🥃 잔이 화면 밖! 재생성!");
 
-            // 잔 제거
             Destroy(currentGlassObject);
             currentGlassObject = null;
-
             isFlying = false;
 
-            // 잠시 후 다시 생성
             Invoke(nameof(RespawnGlass), 1f);
         }
     }
 
     void RespawnGlass()
     {
-        ChangeGlass(currentGlassType);  // 같은 종류로 다시 생성
+        ChangeGlass(currentGlassType);
         Debug.Log("🥃 잔 재생성!");
     }
 
-    // 외부에서 현재 잔 오브젝트 접근
     public GameObject GetCurrentGlass()
     {
         return currentGlassObject;
     }
-    // 잔이 던져졌을 때 외부에서 호출
+
     public void OnGlassThrown()
     {
         isFlying = true;
         Debug.Log("🚀 잔 날아가는 중! 키 입력 막힘");
     }
+
     void DetectFlying()
     {
         if (currentGlassObject == null) return;
@@ -148,7 +147,6 @@ public class GlassController : MonoBehaviour
         Rigidbody2D rb = currentGlassObject.GetComponent<Rigidbody2D>();
         if (rb == null) return;
 
-        // 속도가 빠르면 = 날아가는 중
         if (rb.linearVelocity.magnitude > 1f)
         {
             isFlying = true;
