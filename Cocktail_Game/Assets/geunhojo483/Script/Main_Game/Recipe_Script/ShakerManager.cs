@@ -90,6 +90,18 @@ public class ShakerManager : MonoBehaviour
         return sum / total * 100f;
     }
 
+    // ★ 이름으로 절대량(ml) 조회 (레시피 ml 판정용 - 같은 이름끼리 합산)
+    public float GetAmountByName(string ingredientName)
+    {
+        float sum = 0f;
+        foreach (var pair in ingredientAmounts)
+        {
+            if (pair.Key != null && pair.Key.ingredientName == ingredientName)
+                sum += pair.Value;
+        }
+        return sum;
+    }
+
     // ★ 지금 들어가 있는 재료 이름 목록 (양이 0보다 큰 것)
     public List<string> GetCurrentIngredientNames()
     {

@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 1214548704640618887}
   - component: {fileID: 2145143451433009194}
   - component: {fileID: 7694517036253573615}
+  - component: {fileID: 6936348399396783060}
+  - component: {fileID: -6034414131136796354}
   m_Layer: 7
   m_Name: Cup4
   m_TagString: Untagged
@@ -108,7 +110,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DraggableObject
   throwVelocityMultiplier: 1
   maxThrowSpeed: 30
+  minThrowSpeed: 5
   freezePhysicsWhileHeld: 1
+  returnIfNotThrown: 0
+  straightenOnGrab: 0
+  yieldToColliders: []
+  tapPixelThreshold: 12
 --- !u!61 &2145143451433009194
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -182,3 +189,31 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &6936348399396783060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2794674004122910745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 139d9c7533567a643acf7cc4a1dfa97d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ServeOnClick
+--- !u!114 &-6034414131136796354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2794674004122910745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda552154b0956648bfe03a2dab8e95e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlassFillController
+  fillToServe: 30
+  amountPerDrop: 1
+  liquid: {fileID: 0}
+  currentFill: 0

@@ -1,12 +1,12 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 
-// ·¹½ÃÇÇ ÇÑ ÁÙÀÇ Àç·á (ÀÌ¸§ + ¸ñÇ¥ ºñÀ² %). ÀÌ¸§Àº IngredientData.ingredientName °ú ÀÏÄ¡ÇØ¾ß ÇÔ.
+// ë ˆì‹œí”¼ í•œ ì¤„ì˜ ì¬ë£Œ (ì´ë¦„ + ëª©í‘œ ì–‘ ml). ì´ë¦„ì€ IngredientData.ingredientName ê³¼ ì¼ì¹˜í•´ì•¼ í•¨.
 [System.Serializable]
 public class RecipeIngredient
 {
     public string ingredientName;
-    public float percent;
-    public RecipeIngredient(string n, float p) { ingredientName = n; percent = p; }
+    public float amountMl;     // ì´ ì¬ë£Œë¥¼ ì •í™•íˆ ì´ë§Œí¼(ml) ë”°ë¼ì•¼ í†µê³¼
+    public RecipeIngredient(string n, float ml) { ingredientName = n; amountMl = ml; }
 }
 
 [System.Serializable]
@@ -20,61 +20,61 @@ public class Recipe
     { name = n; glass = g; requiresIce = ice; ingredients = ing; }
 }
 
-// Ä¬Å×ÀÏ 50Á¾ ·¹½ÃÇÇ Å×ÀÌºí (ºñÀ² ÇÕ = 100%, ¾óÀ½Àº requiresIce·Î º°µµ)
-// Àç·á ÀÌ¸§ = ½ÇÁ¦ IngredientData ÀÌ¸§(_S)
+// ì¹µí…Œì¼ 50ì¢… ë ˆì‹œí”¼ í…Œì´ë¸” (ê° ì¬ë£Œë¥¼ ì •í•´ì§„ mlë§Œí¼ ë”°ë¼ì•¼ í•¨. í•©ì´ 100ì´ë¼ í•œ ì” â‰ˆ 100ml)
+// ì¬ë£Œ ì´ë¦„ = ì‹¤ì œ IngredientData ì´ë¦„(_S)
 public static class RecipeDatabase
 {
     public static List<Recipe> All = new List<Recipe>()
     {
-        new Recipe("¹Îµé·¹ÁÖ", GlassType.Cocktail, false, new List<RecipeIngredient> { new RecipeIngredient("Dandelion_S", 46), new RecipeIngredient("Champagne_S", 54) }),
-        new Recipe("³ªÀÇ ¶óÀÓ·¹¸ó³ª¹«", GlassType.Highball, true, new List<RecipeIngredient> { new RecipeIngredient("Lime_S", 27), new RecipeIngredient("Lemon_S", 27), new RecipeIngredient("liqueur_S", 46) }),
-        new Recipe("º°ÀÌ ±×¸®´Â ¹ã", GlassType.Hurricane, false, new List<RecipeIngredient> { new RecipeIngredient("Starfruit_S", 30), new RecipeIngredient("Honey_S", 10), new RecipeIngredient("Blueberry_S", 30), new RecipeIngredient("Rum_S", 30) }),
-        new Recipe("Ã¹´« ¿À´Â ³¯", GlassType.Cocktail, false, new List<RecipeIngredient> { new RecipeIngredient("Apple_S", 40), new RecipeIngredient("Champagne_S", 47), new RecipeIngredient("Mint_S", 13) }),
-        new Recipe("È²±İºû ¿ÀÈÄ", GlassType.OnTheRocks, false, new List<RecipeIngredient> { new RecipeIngredient("Pineapple_S", 43), new RecipeIngredient("Maple_S", 14), new RecipeIngredient("Brandy_S", 43) }),
-        new Recipe("ºÓÀº ³«Á¶", GlassType.OnTheRocks, false, new List<RecipeIngredient> { new RecipeIngredient("Grapefruit_S", 50), new RecipeIngredient("Tequila_S", 50) }),
-        new Recipe("º¹¼ş¾Æ ÆíÁö", GlassType.Highball, false, new List<RecipeIngredient> { new RecipeIngredient("Peach_S", 38), new RecipeIngredient("Honey_S", 12), new RecipeIngredient("SparklingWater_S", 50) }),
-        new Recipe("µş±â¹ç¿¡¼­", GlassType.Highball, true, new List<RecipeIngredient> { new RecipeIngredient("Strawberry_S", 40), new RecipeIngredient("Lime_S", 20), new RecipeIngredient("Vodka_S", 40) }),
-        new Recipe("ÃÊ·Ï ¹Ù¶÷", GlassType.Highball, false, new List<RecipeIngredient> { new RecipeIngredient("Mint_S", 15), new RecipeIngredient("Lime_S", 23), new RecipeIngredient("SparklingWater_S", 62) }),
-        new Recipe("»ç¶óÁø ¿©¸§", GlassType.Hurricane, true, new List<RecipeIngredient> { new RecipeIngredient("Pineapple_S", 40), new RecipeIngredient("Rum_S", 40), new RecipeIngredient("Lemon_S", 20) }),
-        new Recipe("ºí·ç¹® ¼Ò³ªÅ¸", GlassType.Highball, true, new List<RecipeIngredient> { new RecipeIngredient("Blueberry_S", 30), new RecipeIngredient("Gin_S", 30), new RecipeIngredient("TonicWater_S", 40) }),
-        new Recipe("·¹¸ó ¼­¾à", GlassType.Cocktail, false, new List<RecipeIngredient> { new RecipeIngredient("Lemon_S", 27), new RecipeIngredient("Honey_S", 18), new RecipeIngredient("Vodka_S", 55) }),
-        new Recipe("ÇÑ³·ÀÇ ¾È°³", GlassType.Cocktail, false, new List<RecipeIngredient> { new RecipeIngredient("Absinthe_S", 29), new RecipeIngredient("Mint_S", 14), new RecipeIngredient("SparklingWater_S", 57) }),
-        new Recipe("½ºÅ¸´õ½ºÆ®", GlassType.Cocktail, false, new List<RecipeIngredient> { new RecipeIngredient("Starfruit_S", 37), new RecipeIngredient("Champagne_S", 44), new RecipeIngredient("Lemon_S", 19) }),
-        new Recipe("´ŞÄŞÇÑ ÀÛº°", GlassType.OnTheRocks, true, new List<RecipeIngredient> { new RecipeIngredient("Peach_S", 43), new RecipeIngredient("Maple_S", 14), new RecipeIngredient("Rum_S", 43) }),
-        new Recipe("ÀÚ¸ù Ãµ±¹", GlassType.Highball, true, new List<RecipeIngredient> { new RecipeIngredient("Grapefruit_S", 32), new RecipeIngredient("liqueur_S", 26), new RecipeIngredient("SparklingWater_S", 42) }),
-        new Recipe("ºê·£µğÀÇ ¹ã", GlassType.OnTheRocks, false, new List<RecipeIngredient> { new RecipeIngredient("Brandy_S", 55), new RecipeIngredient("Honey_S", 18), new RecipeIngredient("Lemon_S", 27) }),
-        new Recipe("µş±â °í¹é", GlassType.Cocktail, false, new List<RecipeIngredient> { new RecipeIngredient("Strawberry_S", 46), new RecipeIngredient("Champagne_S", 54) }),
-        new Recipe("ÆÄÀÎ¾ÖÇÃ Æ¯±Ş", GlassType.Margarita, false, new List<RecipeIngredient> { new RecipeIngredient("Pineapple_S", 40), new RecipeIngredient("Tequila_S", 40), new RecipeIngredient("Lime_S", 20) }),
-        new Recipe("¹Îµé·¹ ²Ş", GlassType.Highball, false, new List<RecipeIngredient> { new RecipeIngredient("Dandelion_S", 32), new RecipeIngredient("Honey_S", 10), new RecipeIngredient("Lemon_S", 16), new RecipeIngredient("SparklingWater_S", 42) }),
-        new Recipe("»ç°ú ¿ĞÃ÷", GlassType.OnTheRocks, true, new List<RecipeIngredient> { new RecipeIngredient("Apple_S", 43), new RecipeIngredient("Brandy_S", 43), new RecipeIngredient("Maple_S", 14) }),
-        new Recipe("¿©¸§¹ã ºí·ç", GlassType.Highball, false, new List<RecipeIngredient> { new RecipeIngredient("Blueberry_S", 26), new RecipeIngredient("Vodka_S", 26), new RecipeIngredient("Lime_S", 13), new RecipeIngredient("SparklingWater_S", 35) }),
-        new Recipe("·¹¸ó ÇàÁø°î", GlassType.Highball, false, new List<RecipeIngredient> { new RecipeIngredient("Lemon_S", 18), new RecipeIngredient("Gin_S", 35), new RecipeIngredient("TonicWater_S", 47) }),
-        new Recipe("º¹¼ş¾Æºû ³ëÀ»", GlassType.Hurricane, false, new List<RecipeIngredient> { new RecipeIngredient("Peach_S", 33), new RecipeIngredient("Champagne_S", 39), new RecipeIngredient("Lime_S", 17), new RecipeIngredient("Honey_S", 11) }),
-        new Recipe("·³ÀÇ Àü¼³", GlassType.Highball, true, new List<RecipeIngredient> { new RecipeIngredient("Rum_S", 55), new RecipeIngredient("Lime_S", 27), new RecipeIngredient("Mint_S", 18) }),
-        new Recipe("ÃÊ·Ï ¹Ì·Î", GlassType.Cocktail, false, new List<RecipeIngredient> { new RecipeIngredient("Absinthe_S", 31), new RecipeIngredient("Starfruit_S", 46), new RecipeIngredient("Lime_S", 23) }),
-        new Recipe("µş±â ¼ÒÇ³", GlassType.Highball, false, new List<RecipeIngredient> { new RecipeIngredient("Strawberry_S", 32), new RecipeIngredient("Mint_S", 10), new RecipeIngredient("Lemon_S", 16), new RecipeIngredient("SparklingWater_S", 42) }),
-        new Recipe("È²È¥ÀÇ µ¥Å³¶ó", GlassType.Margarita, false, new List<RecipeIngredient> { new RecipeIngredient("Tequila_S", 43), new RecipeIngredient("Grapefruit_S", 43), new RecipeIngredient("Maple_S", 14) }),
-        new Recipe("ÆÄÀÎ¾ÖÇÃ ³«¿ø", GlassType.Hurricane, false, new List<RecipeIngredient> { new RecipeIngredient("Pineapple_S", 29), new RecipeIngredient("liqueur_S", 24), new RecipeIngredient("Mint_S", 9), new RecipeIngredient("SparklingWater_S", 38) }),
-        new Recipe("Åä´Ğ ±³Çâ°î", GlassType.Highball, true, new List<RecipeIngredient> { new RecipeIngredient("TonicWater_S", 42), new RecipeIngredient("Gin_S", 32), new RecipeIngredient("Lemon_S", 16), new RecipeIngredient("Honey_S", 10) }),
-        new Recipe("»ç°ú ¸ğÇè", GlassType.OnTheRocks, false, new List<RecipeIngredient> { new RecipeIngredient("Apple_S", 40), new RecipeIngredient("Lime_S", 20), new RecipeIngredient("Rum_S", 40) }),
-        new Recipe("ºí·çº£¸® ¿Õ±¹", GlassType.Hurricane, true, new List<RecipeIngredient> { new RecipeIngredient("Blueberry_S", 40), new RecipeIngredient("Maple_S", 13), new RecipeIngredient("Champagne_S", 47) }),
-        new Recipe("¹Îµé·¹ »êÃ¥", GlassType.Highball, false, new List<RecipeIngredient> { new RecipeIngredient("Dandelion_S", 38), new RecipeIngredient("Mint_S", 12), new RecipeIngredient("SparklingWater_S", 50) }),
-        new Recipe("º¹¼ş¾Æ Å½Á¤", GlassType.OnTheRocks, true, new List<RecipeIngredient> { new RecipeIngredient("Peach_S", 40), new RecipeIngredient("Brandy_S", 40), new RecipeIngredient("Lemon_S", 20) }),
-        new Recipe("½ºÅ¸ÈÄ¸£Ã÷ Àü¼³", GlassType.Highball, true, new List<RecipeIngredient> { new RecipeIngredient("Starfruit_S", 27), new RecipeIngredient("Vodka_S", 27), new RecipeIngredient("Honey_S", 9), new RecipeIngredient("SparklingWater_S", 37) }),
-        new Recipe("ÀÚ¸ùÀÇ °í¹é", GlassType.Cocktail, false, new List<RecipeIngredient> { new RecipeIngredient("Grapefruit_S", 43), new RecipeIngredient("Vodka_S", 43), new RecipeIngredient("Mint_S", 14) }),
-        new Recipe("·¹¸ó ¼Ò³×Æ®", GlassType.Highball, false, new List<RecipeIngredient> { new RecipeIngredient("Lemon_S", 23), new RecipeIngredient("Maple_S", 15), new RecipeIngredient("SparklingWater_S", 62) }),
-        new Recipe("µş±â Çõ¸í", GlassType.Margarita, true, new List<RecipeIngredient> { new RecipeIngredient("Strawberry_S", 40), new RecipeIngredient("Tequila_S", 40), new RecipeIngredient("Lime_S", 20) }),
-        new Recipe("¾Ğ»ıÆ®ÀÇ ¼Ó»èÀÓ", GlassType.Cocktail, false, new List<RecipeIngredient> { new RecipeIngredient("Absinthe_S", 45), new RecipeIngredient("Honey_S", 22), new RecipeIngredient("Lemon_S", 33) }),
-        new Recipe("ÆÄÀÎ¾ÖÇÃ ¼¼·¹³ªµ¥", GlassType.Hurricane, true, new List<RecipeIngredient> { new RecipeIngredient("Pineapple_S", 40), new RecipeIngredient("Champagne_S", 47), new RecipeIngredient("Mint_S", 13) }),
-        new Recipe("ºí·çº£¸® Ç×ÇØ", GlassType.Hurricane, true, new List<RecipeIngredient> { new RecipeIngredient("Blueberry_S", 35), new RecipeIngredient("Rum_S", 35), new RecipeIngredient("Lime_S", 18), new RecipeIngredient("Maple_S", 12) }),
-        new Recipe("¹ÎÆ® ¿Õ°ü", GlassType.Cocktail, false, new List<RecipeIngredient> { new RecipeIngredient("Mint_S", 17), new RecipeIngredient("Champagne_S", 58), new RecipeIngredient("Lemon_S", 25) }),
-        new Recipe("»ç°ú ºñ¹Ğ", GlassType.Highball, true, new List<RecipeIngredient> { new RecipeIngredient("Apple_S", 30), new RecipeIngredient("Gin_S", 30), new RecipeIngredient("TonicWater_S", 40) }),
-        new Recipe("º¹¼ş¾Æ ¿ĞÃ÷", GlassType.Cocktail, false, new List<RecipeIngredient> { new RecipeIngredient("Peach_S", 46), new RecipeIngredient("liqueur_S", 39), new RecipeIngredient("Honey_S", 15) }),
-        new Recipe("ÀÚ¸ù ÆøÇ³", GlassType.Highball, false, new List<RecipeIngredient> { new RecipeIngredient("Grapefruit_S", 26), new RecipeIngredient("Rum_S", 26), new RecipeIngredient("Lime_S", 13), new RecipeIngredient("SparklingWater_S", 35) }),
-        new Recipe("½ºÅ¸ÈÄ¸£Ã÷ ¿©¸í", GlassType.OnTheRocks, true, new List<RecipeIngredient> { new RecipeIngredient("Starfruit_S", 43), new RecipeIngredient("Maple_S", 14), new RecipeIngredient("Gin_S", 43) }),
-        new Recipe("µş±â ÀºÇÏ", GlassType.Highball, true, new List<RecipeIngredient> { new RecipeIngredient("Strawberry_S", 35), new RecipeIngredient("Vodka_S", 35), new RecipeIngredient("Honey_S", 12), new RecipeIngredient("Lemon_S", 18) }),
-        new Recipe("¹Îµé·¹ ±âÀû", GlassType.Cocktail, false, new List<RecipeIngredient> { new RecipeIngredient("Dandelion_S", 43), new RecipeIngredient("Lime_S", 21), new RecipeIngredient("liqueur_S", 36) }),
-        new Recipe("ºê·£µğ ÇùÁÖ°î", GlassType.OnTheRocks, false, new List<RecipeIngredient> { new RecipeIngredient("Brandy_S", 27), new RecipeIngredient("Apple_S", 27), new RecipeIngredient("Maple_S", 9), new RecipeIngredient("SparklingWater_S", 37) }),
-        new Recipe("·¹¸ó ¹«¹ıÀÚ", GlassType.Margarita, false, new List<RecipeIngredient> { new RecipeIngredient("Lemon_S", 27), new RecipeIngredient("Tequila_S", 55), new RecipeIngredient("Honey_S", 18) }),
+        new Recipe("ë¯¼ë“¤ë ˆì£¼", GlassType.Cocktail, false, new List<RecipeIngredient> { new RecipeIngredient("Dandelion_S", 46), new RecipeIngredient("Champagne_S", 54) }),
+        new Recipe("ë‚˜ì˜ ë¼ì„ë ˆëª¬ë‚˜ë¬´", GlassType.Highball, true, new List<RecipeIngredient> { new RecipeIngredient("Lime_S", 27), new RecipeIngredient("Lemon_S", 27), new RecipeIngredient("liqueur_S", 46) }),
+        new Recipe("ë³„ì´ ê·¸ë¦¬ëŠ” ë°¤", GlassType.Hurricane, false, new List<RecipeIngredient> { new RecipeIngredient("Starfruit_S", 30), new RecipeIngredient("Honey_S", 10), new RecipeIngredient("Blueberry_S", 30), new RecipeIngredient("Rum_S", 30) }),
+        new Recipe("ì²«ëˆˆ ì˜¤ëŠ” ë‚ ", GlassType.Cocktail, false, new List<RecipeIngredient> { new RecipeIngredient("Apple_S", 40), new RecipeIngredient("Champagne_S", 47), new RecipeIngredient("Mint_S", 13) }),
+        new Recipe("í™©ê¸ˆë¹› ì˜¤í›„", GlassType.OnTheRocks, false, new List<RecipeIngredient> { new RecipeIngredient("Pineapple_S", 43), new RecipeIngredient("Maple_S", 14), new RecipeIngredient("Brandy_S", 43) }),
+        new Recipe("ë¶‰ì€ ë‚™ì¡°", GlassType.OnTheRocks, false, new List<RecipeIngredient> { new RecipeIngredient("Grapefruit_S", 50), new RecipeIngredient("Tequila_S", 50) }),
+        new Recipe("ë³µìˆ­ì•„ í¸ì§€", GlassType.Highball, false, new List<RecipeIngredient> { new RecipeIngredient("Peach_S", 38), new RecipeIngredient("Honey_S", 12), new RecipeIngredient("SparklingWater_S", 50) }),
+        new Recipe("ë”¸ê¸°ë°­ì—ì„œ", GlassType.Highball, true, new List<RecipeIngredient> { new RecipeIngredient("Strawberry_S", 40), new RecipeIngredient("Lime_S", 20), new RecipeIngredient("Vodka_S", 40) }),
+        new Recipe("ì´ˆë¡ ë°”ëŒ", GlassType.Highball, false, new List<RecipeIngredient> { new RecipeIngredient("Mint_S", 15), new RecipeIngredient("Lime_S", 23), new RecipeIngredient("SparklingWater_S", 62) }),
+        new Recipe("ì‚¬ë¼ì§„ ì—¬ë¦„", GlassType.Hurricane, true, new List<RecipeIngredient> { new RecipeIngredient("Pineapple_S", 40), new RecipeIngredient("Rum_S", 40), new RecipeIngredient("Lemon_S", 20) }),
+        new Recipe("ë¸”ë£¨ë¬¸ ì†Œë‚˜íƒ€", GlassType.Highball, true, new List<RecipeIngredient> { new RecipeIngredient("Blueberry_S", 30), new RecipeIngredient("Gin_S", 30), new RecipeIngredient("TonicWater_S", 40) }),
+        new Recipe("ë ˆëª¬ ì„œì•½", GlassType.Cocktail, false, new List<RecipeIngredient> { new RecipeIngredient("Lemon_S", 27), new RecipeIngredient("Honey_S", 18), new RecipeIngredient("Vodka_S", 55) }),
+        new Recipe("í•œë‚®ì˜ ì•ˆê°œ", GlassType.Cocktail, false, new List<RecipeIngredient> { new RecipeIngredient("Absinthe_S", 29), new RecipeIngredient("Mint_S", 14), new RecipeIngredient("SparklingWater_S", 57) }),
+        new Recipe("ìŠ¤íƒ€ë”ìŠ¤íŠ¸", GlassType.Cocktail, false, new List<RecipeIngredient> { new RecipeIngredient("Starfruit_S", 37), new RecipeIngredient("Champagne_S", 44), new RecipeIngredient("Lemon_S", 19) }),
+        new Recipe("ë‹¬ì½¤í•œ ì‘ë³„", GlassType.OnTheRocks, true, new List<RecipeIngredient> { new RecipeIngredient("Peach_S", 43), new RecipeIngredient("Maple_S", 14), new RecipeIngredient("Rum_S", 43) }),
+        new Recipe("ìëª½ ì²œêµ­", GlassType.Highball, true, new List<RecipeIngredient> { new RecipeIngredient("Grapefruit_S", 32), new RecipeIngredient("liqueur_S", 26), new RecipeIngredient("SparklingWater_S", 42) }),
+        new Recipe("ë¸Œëœë””ì˜ ë°¤", GlassType.OnTheRocks, false, new List<RecipeIngredient> { new RecipeIngredient("Brandy_S", 55), new RecipeIngredient("Honey_S", 18), new RecipeIngredient("Lemon_S", 27) }),
+        new Recipe("ë”¸ê¸° ê³ ë°±", GlassType.Cocktail, false, new List<RecipeIngredient> { new RecipeIngredient("Strawberry_S", 46), new RecipeIngredient("Champagne_S", 54) }),
+        new Recipe("íŒŒì¸ì• í”Œ íŠ¹ê¸‰", GlassType.Margarita, false, new List<RecipeIngredient> { new RecipeIngredient("Pineapple_S", 40), new RecipeIngredient("Tequila_S", 40), new RecipeIngredient("Lime_S", 20) }),
+        new Recipe("ë¯¼ë“¤ë ˆ ê¿ˆ", GlassType.Highball, false, new List<RecipeIngredient> { new RecipeIngredient("Dandelion_S", 32), new RecipeIngredient("Honey_S", 10), new RecipeIngredient("Lemon_S", 16), new RecipeIngredient("SparklingWater_S", 42) }),
+        new Recipe("ì‚¬ê³¼ ì™ˆì¸ ", GlassType.OnTheRocks, true, new List<RecipeIngredient> { new RecipeIngredient("Apple_S", 43), new RecipeIngredient("Brandy_S", 43), new RecipeIngredient("Maple_S", 14) }),
+        new Recipe("ì—¬ë¦„ë°¤ ë¸”ë£¨", GlassType.Highball, false, new List<RecipeIngredient> { new RecipeIngredient("Blueberry_S", 26), new RecipeIngredient("Vodka_S", 26), new RecipeIngredient("Lime_S", 13), new RecipeIngredient("SparklingWater_S", 35) }),
+        new Recipe("ë ˆëª¬ í–‰ì§„ê³¡", GlassType.Highball, false, new List<RecipeIngredient> { new RecipeIngredient("Lemon_S", 18), new RecipeIngredient("Gin_S", 35), new RecipeIngredient("TonicWater_S", 47) }),
+        new Recipe("ë³µìˆ­ì•„ë¹› ë…¸ì„", GlassType.Hurricane, false, new List<RecipeIngredient> { new RecipeIngredient("Peach_S", 33), new RecipeIngredient("Champagne_S", 39), new RecipeIngredient("Lime_S", 17), new RecipeIngredient("Honey_S", 11) }),
+        new Recipe("ëŸ¼ì˜ ì „ì„¤", GlassType.Highball, true, new List<RecipeIngredient> { new RecipeIngredient("Rum_S", 55), new RecipeIngredient("Lime_S", 27), new RecipeIngredient("Mint_S", 18) }),
+        new Recipe("ì´ˆë¡ ë¯¸ë¡œ", GlassType.Cocktail, false, new List<RecipeIngredient> { new RecipeIngredient("Absinthe_S", 31), new RecipeIngredient("Starfruit_S", 46), new RecipeIngredient("Lime_S", 23) }),
+        new Recipe("ë”¸ê¸° ì†Œí’", GlassType.Highball, false, new List<RecipeIngredient> { new RecipeIngredient("Strawberry_S", 32), new RecipeIngredient("Mint_S", 10), new RecipeIngredient("Lemon_S", 16), new RecipeIngredient("SparklingWater_S", 42) }),
+        new Recipe("í™©í˜¼ì˜ ë°í‚¬ë¼", GlassType.Margarita, false, new List<RecipeIngredient> { new RecipeIngredient("Tequila_S", 43), new RecipeIngredient("Grapefruit_S", 43), new RecipeIngredient("Maple_S", 14) }),
+        new Recipe("íŒŒì¸ì• í”Œ ë‚™ì›", GlassType.Hurricane, false, new List<RecipeIngredient> { new RecipeIngredient("Pineapple_S", 29), new RecipeIngredient("liqueur_S", 24), new RecipeIngredient("Mint_S", 9), new RecipeIngredient("SparklingWater_S", 38) }),
+        new Recipe("í† ë‹‰ êµí–¥ê³¡", GlassType.Highball, true, new List<RecipeIngredient> { new RecipeIngredient("TonicWater_S", 42), new RecipeIngredient("Gin_S", 32), new RecipeIngredient("Lemon_S", 16), new RecipeIngredient("Honey_S", 10) }),
+        new Recipe("ì‚¬ê³¼ ëª¨í—˜", GlassType.OnTheRocks, false, new List<RecipeIngredient> { new RecipeIngredient("Apple_S", 40), new RecipeIngredient("Lime_S", 20), new RecipeIngredient("Rum_S", 40) }),
+        new Recipe("ë¸”ë£¨ë² ë¦¬ ì™•êµ­", GlassType.Hurricane, true, new List<RecipeIngredient> { new RecipeIngredient("Blueberry_S", 40), new RecipeIngredient("Maple_S", 13), new RecipeIngredient("Champagne_S", 47) }),
+        new Recipe("ë¯¼ë“¤ë ˆ ì‚°ì±…", GlassType.Highball, false, new List<RecipeIngredient> { new RecipeIngredient("Dandelion_S", 38), new RecipeIngredient("Mint_S", 12), new RecipeIngredient("SparklingWater_S", 50) }),
+        new Recipe("ë³µìˆ­ì•„ íƒì •", GlassType.OnTheRocks, true, new List<RecipeIngredient> { new RecipeIngredient("Peach_S", 40), new RecipeIngredient("Brandy_S", 40), new RecipeIngredient("Lemon_S", 20) }),
+        new Recipe("ìŠ¤íƒ€í›„ë¥´ì¸  ì „ì„¤", GlassType.Highball, true, new List<RecipeIngredient> { new RecipeIngredient("Starfruit_S", 27), new RecipeIngredient("Vodka_S", 27), new RecipeIngredient("Honey_S", 9), new RecipeIngredient("SparklingWater_S", 37) }),
+        new Recipe("ìëª½ì˜ ê³ ë°±", GlassType.Cocktail, false, new List<RecipeIngredient> { new RecipeIngredient("Grapefruit_S", 43), new RecipeIngredient("Vodka_S", 43), new RecipeIngredient("Mint_S", 14) }),
+        new Recipe("ë ˆëª¬ ì†Œë„¤íŠ¸", GlassType.Highball, false, new List<RecipeIngredient> { new RecipeIngredient("Lemon_S", 23), new RecipeIngredient("Maple_S", 15), new RecipeIngredient("SparklingWater_S", 62) }),
+        new Recipe("ë”¸ê¸° í˜ëª…", GlassType.Margarita, true, new List<RecipeIngredient> { new RecipeIngredient("Strawberry_S", 40), new RecipeIngredient("Tequila_S", 40), new RecipeIngredient("Lime_S", 20) }),
+        new Recipe("ì••ìƒíŠ¸ì˜ ì†ì‚­ì„", GlassType.Cocktail, false, new List<RecipeIngredient> { new RecipeIngredient("Absinthe_S", 45), new RecipeIngredient("Honey_S", 22), new RecipeIngredient("Lemon_S", 33) }),
+        new Recipe("íŒŒì¸ì• í”Œ ì„¸ë ˆë‚˜ë°", GlassType.Hurricane, true, new List<RecipeIngredient> { new RecipeIngredient("Pineapple_S", 40), new RecipeIngredient("Champagne_S", 47), new RecipeIngredient("Mint_S", 13) }),
+        new Recipe("ë¸”ë£¨ë² ë¦¬ í•­í•´", GlassType.Hurricane, true, new List<RecipeIngredient> { new RecipeIngredient("Blueberry_S", 35), new RecipeIngredient("Rum_S", 35), new RecipeIngredient("Lime_S", 18), new RecipeIngredient("Maple_S", 12) }),
+        new Recipe("ë¯¼íŠ¸ ì™•ê´€", GlassType.Cocktail, false, new List<RecipeIngredient> { new RecipeIngredient("Mint_S", 17), new RecipeIngredient("Champagne_S", 58), new RecipeIngredient("Lemon_S", 25) }),
+        new Recipe("ì‚¬ê³¼ ë¹„ë°€", GlassType.Highball, true, new List<RecipeIngredient> { new RecipeIngredient("Apple_S", 30), new RecipeIngredient("Gin_S", 30), new RecipeIngredient("TonicWater_S", 40) }),
+        new Recipe("ë³µìˆ­ì•„ ì™ˆì¸ ", GlassType.Cocktail, false, new List<RecipeIngredient> { new RecipeIngredient("Peach_S", 46), new RecipeIngredient("liqueur_S", 39), new RecipeIngredient("Honey_S", 15) }),
+        new Recipe("ìëª½ í­í’", GlassType.Highball, false, new List<RecipeIngredient> { new RecipeIngredient("Grapefruit_S", 26), new RecipeIngredient("Rum_S", 26), new RecipeIngredient("Lime_S", 13), new RecipeIngredient("SparklingWater_S", 35) }),
+        new Recipe("ìŠ¤íƒ€í›„ë¥´ì¸  ì—¬ëª…", GlassType.OnTheRocks, true, new List<RecipeIngredient> { new RecipeIngredient("Starfruit_S", 43), new RecipeIngredient("Maple_S", 14), new RecipeIngredient("Gin_S", 43) }),
+        new Recipe("ë”¸ê¸° ì€í•˜", GlassType.Highball, true, new List<RecipeIngredient> { new RecipeIngredient("Strawberry_S", 35), new RecipeIngredient("Vodka_S", 35), new RecipeIngredient("Honey_S", 12), new RecipeIngredient("Lemon_S", 18) }),
+        new Recipe("ë¯¼ë“¤ë ˆ ê¸°ì ", GlassType.Cocktail, false, new List<RecipeIngredient> { new RecipeIngredient("Dandelion_S", 43), new RecipeIngredient("Lime_S", 21), new RecipeIngredient("liqueur_S", 36) }),
+        new Recipe("ë¸Œëœë”” í˜‘ì£¼ê³¡", GlassType.OnTheRocks, false, new List<RecipeIngredient> { new RecipeIngredient("Brandy_S", 27), new RecipeIngredient("Apple_S", 27), new RecipeIngredient("Maple_S", 9), new RecipeIngredient("SparklingWater_S", 37) }),
+        new Recipe("ë ˆëª¬ ë¬´ë²•ì", GlassType.Margarita, false, new List<RecipeIngredient> { new RecipeIngredient("Lemon_S", 27), new RecipeIngredient("Tequila_S", 55), new RecipeIngredient("Honey_S", 18) }),
     };
 }

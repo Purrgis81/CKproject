@@ -23,6 +23,18 @@ public class GlassController : MonoBehaviour
     [Header("현재 잔")]
     public GlassType currentGlassType = GlassType.Cocktail;
 
+    [Header("잔별 최대 ml (가득 기준)")]
+    [Tooltip("Cocktail 잔이 가득 차는 ml")]
+    public float cocktailMaxMl = 45f;
+    [Tooltip("Highball 잔이 가득 차는 ml")]
+    public float highballMaxMl = 45f;
+    [Tooltip("OnTheRocks 잔이 가득 차는 ml")]
+    public float onTheRocksMaxMl = 60f;
+    [Tooltip("Hurricane 잔이 가득 차는 ml")]
+    public float hurricaneMaxMl = 60f;
+    [Tooltip("Margarita 잔이 가득 차는 ml")]
+    public float margaritaMaxMl = 100f;
+
     [Header("잔 위치")]
     [Tooltip("잔이 생성될 위치 (이 오브젝트의 자식으로 생성됨)")]
     public Transform glassHolder;
@@ -74,11 +86,34 @@ public class GlassController : MonoBehaviour
         if (prefabToSpawn != null)
         {
             currentGlassObject = Instantiate(prefabToSpawn, glassHolder.position, Quaternion.identity, glassHolder);
-            Debug.Log($"🥃 잔 변경: {type}");
+
+            // 이 잔의 '가득 기준'을 종류별 최대 ml로 설정
+            GlassFillController fill = currentGlassObject.GetComponent<GlassFillController>();
+            if (fill == null) fill = currentGlassObject.GetComponentInChildren<GlassFillController>();
+            if (fill != null)
+            {
+                fill.fillToServe = GetMaxMl(type);
+            }
+
+            Debug.Log($"🥃 잔 변경: {type} (최대 {GetMaxMl(type):F0}ml)");
         }
         else
         {
             Debug.LogWarning($"⚠️ {type} 프리팹이 연결 안 됨!");
+        }
+    }
+
+    // 잔 종류별 최대 ml
+    public float GetMaxMl(GlassType type)
+    {
+        switch (type)
+        {
+            case GlassType.Cocktail: return cocktailMaxMl;
+            case GlassType.Highball: return highballMaxMl;
+            case GlassType.OnTheRocks: return onTheRocksMaxMl;
+            case GlassType.Hurricane: return hurricaneMaxMl;
+            case GlassType.Margarita: return margaritaMaxMl;
+            default: return 100f;
         }
     }
 
