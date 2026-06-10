@@ -34,6 +34,10 @@ public class OrderManager : MonoBehaviour
     [Header("상태 (읽기용)")]
     public bool orderActive = false;
 
+    private Vector3 startPosition;
+    private Quaternion startRotation;
+    private Rigidbody2D rb;
+
     void Awake()
     {
         if (Instance == null) Instance = this;
@@ -46,6 +50,9 @@ public class OrderManager : MonoBehaviour
         if (customer != null) customer.onArrived = OnCustomerArrived;
 
         NextOrder();
+        startPosition = transform.position;
+        startRotation = transform.rotation;
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // 새 손님 등장 (손님 먼저)
@@ -143,5 +150,16 @@ public class OrderManager : MonoBehaviour
         GlassFillController fill = g.GetComponent<GlassFillController>();
         if (fill == null) return true;   // 채우기 컨트롤러 안 붙였으면 그냥 통과
         return fill.IsFull;
+    }
+    public void ResetToStart()
+    {
+        transform.position = startPosition;
+        transform.rotation = startRotation;
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
     }
 }
