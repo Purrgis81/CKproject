@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 
-// 잔에 붙임. 받이(트리거 콜라이더)에 들어온 액체 방울을 '세어서' 차오르고,
+// 잔에 붙임. 잔의 받이(= Catcher 레이어 트리거)에 닿은 액체 방울을 세어서 차오르고,
 // 가득 차야만 손님에게 넘길(서빙) 수 있게 함.
 //
-//  ★ 받이 트리거가 이 스크립트로 신호를 보내려면 둘 중 하나:
-//     (A) 트리거 콜라이더를 이 오브젝트(잔)에 직접 붙이기  ← 제일 간단
-//     (B) 자식 'Catcher'에 트리거를 두고, 잔(루트)에 Rigidbody2D 붙이기
-//        (자식 콜라이더의 트리거는 Rigidbody가 있는 부모로 올라옴)
+//  ★ 받이 만들기: 잔(또는 자식)에 트리거 콜라이더를 두고, 그 오브젝트의
+//     레이어를 "Catcher" 로 설정. 방울이 그 받이에 닿으면 AddDrop 을 불러줌.
+//     (Catcher 레이어가 아닌 콜라이더에는 방울이 튕기기만 하고 안 채워짐)
 [RequireComponent(typeof(Collider2D))]
 public class GlassFillController : MonoBehaviour
 {
@@ -28,6 +27,7 @@ public class GlassFillController : MonoBehaviour
 
     private Vector3 maskBaseScale;
     private float maskSpriteHeight = 1f;
+    private float maskSpriteMinY = -0.5f;
     private float maskBottomLocalY;
 
     void Start()
@@ -36,19 +36,11 @@ public class GlassFillController : MonoBehaviour
         UpdateLiquid();
     }
 
-    // 받이에 액체 방울이 들어오면 1개 세고 그만큼 채움
-    void OnTriggerEnter2D(Collider2D other)
+    // 방울이 잔의 Catcher 받이에 닿으면 불러주는 함수 (LiquidParticleCollision 에서 호출)
+    public void AddDrop(LiquidParticleCollision drop)
     {
         if (IsFull) return;
-
-        LiquidParticleCollision drop = other.GetComponent<LiquidParticleCollision>();
-        if (drop == null)
-        {
-            // 디버그: 들어왔는데 액체가 아님 (다른 콜라이더)
-            // Debug.Log($"(잔) 트리거 들어옴, 액체 아님: {other.name}");
-            return;
-        }
-
+        if (drop == null) return;
         if (onlyFinishedCocktail && drop.sourceIngredient != null) return;
 
         currentFill += amountPerDrop;
@@ -59,6 +51,7 @@ public class GlassFillController : MonoBehaviour
     }
 
     // 에디터에서 맞춰둔 '가득' 마스크 상태 기준으로 바닥 위치 기록
+    // (스프라이트 피벗이 Center/Bottom/Top 어디든 정확히 동작하게 bounds로 계산)
     void CaptureMaskBase()
     {
         if (liquidMask == null) return;
@@ -74,9 +67,10 @@ public class GlassFillController : MonoBehaviour
             if (sr != null) spr = sr.sprite;
         }
         maskSpriteHeight = (spr != null) ? spr.bounds.size.y : 1f;
+        maskSpriteMinY = (spr != null) ? spr.bounds.min.y : -0.5f; // 피벗 기준 아래쪽 끝
 
-        float fullHeight = maskSpriteHeight * maskBaseScale.y;
-        maskBottomLocalY = liquidMask.localPosition.y - fullHeight * 0.5f;
+        // 실제 바닥 = 위치 + (피벗에서 아래끝까지 거리 × 스케일)
+        maskBottomLocalY = liquidMask.localPosition.y + maskSpriteMinY * maskBaseScale.y;
     }
 
     void UpdateLiquid()
@@ -86,14 +80,14 @@ public class GlassFillController : MonoBehaviour
 
         // 바닥 고정한 채 위로 키움
         float newScaleY = maskBaseScale.y * ratio;
-        float newHeight = maskSpriteHeight * newScaleY;
 
         Vector3 sc = liquidMask.localScale;
         sc.y = newScaleY;
         liquidMask.localScale = sc;
 
+        // 바닥이 maskBottomLocalY에 고정되도록 피벗 위치를 역산
         Vector3 pos = liquidMask.localPosition;
-        pos.y = maskBottomLocalY + newHeight * 0.5f;
+        pos.y = maskBottomLocalY - maskSpriteMinY * newScaleY;
         liquidMask.localPosition = pos;
     }
 

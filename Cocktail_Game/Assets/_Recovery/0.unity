@@ -497,7 +497,7 @@ MonoBehaviour:
   ingredientData: {fileID: 11400000, guid: f50e10146bfb45245914a10fc4cee82d, type: 2}
   pourAngle: 120
   pourStartAngle: 90
-  tiltSpeed: 300
+  tiltSpeed: 540
   hoverSortingOrder: 51
 --- !u!114 &215560557
 MonoBehaviour:
@@ -744,7 +744,7 @@ MonoBehaviour:
   ingredientData: {fileID: 11400000, guid: 42773bb74901e654798876a34ecf11ec, type: 2}
   pourAngle: 120
   pourStartAngle: 90
-  tiltSpeed: 300
+  tiltSpeed: 540
   hoverSortingOrder: 51
 --- !u!114 &272377598
 MonoBehaviour:
@@ -1658,7 +1658,7 @@ MonoBehaviour:
   ingredientData: {fileID: 11400000, guid: 29bd14c84cafeb8418ab116c8593b60c, type: 2}
   pourAngle: 120
   pourStartAngle: 90
-  tiltSpeed: 300
+  tiltSpeed: 540
   hoverSortingOrder: 51
 --- !u!114 &376611105
 MonoBehaviour:
@@ -1905,7 +1905,7 @@ MonoBehaviour:
   ingredientData: {fileID: 11400000, guid: 9572d97e6b7f7a0449c621e1ad1ca738, type: 2}
   pourAngle: 120
   pourStartAngle: 90
-  tiltSpeed: 300
+  tiltSpeed: 540
   hoverSortingOrder: 51
 --- !u!114 &408099322
 MonoBehaviour:
@@ -2152,7 +2152,7 @@ MonoBehaviour:
   ingredientData: {fileID: 11400000, guid: c1a0ff47cd5a8f24094afe399d305bf2, type: 2}
   pourAngle: 120
   pourStartAngle: 90
-  tiltSpeed: 300
+  tiltSpeed: 540
   hoverSortingOrder: 51
 --- !u!114 &440121941
 MonoBehaviour:
@@ -3010,7 +3010,7 @@ MonoBehaviour:
   ingredientData: {fileID: 11400000, guid: ad9514a485fbf274bb6e294e1a04d4be, type: 2}
   pourAngle: 120
   pourStartAngle: 90
-  tiltSpeed: 300
+  tiltSpeed: 540
   hoverSortingOrder: 51
 --- !u!114 &571889862
 MonoBehaviour:
@@ -3735,7 +3735,7 @@ MonoBehaviour:
   ingredientData: {fileID: 11400000, guid: f21ac185a662d7e45bba1a34917de9c0, type: 2}
   pourAngle: 120
   pourStartAngle: 90
-  tiltSpeed: 300
+  tiltSpeed: 540
   hoverSortingOrder: 51
 --- !u!114 &696083273
 MonoBehaviour:
@@ -4370,7 +4370,7 @@ MonoBehaviour:
   ingredientData: {fileID: 11400000, guid: 9d78623080a636d4988d95c3abcdf659, type: 2}
   pourAngle: 120
   pourStartAngle: 90
-  tiltSpeed: 300
+  tiltSpeed: 540
   hoverSortingOrder: 51
 --- !u!114 &866643023
 MonoBehaviour:
@@ -4617,7 +4617,7 @@ MonoBehaviour:
   ingredientData: {fileID: 11400000, guid: ee7b4ebff92579f4595c0fabcbbd775c, type: 2}
   pourAngle: 120
   pourStartAngle: 90
-  tiltSpeed: 300
+  tiltSpeed: 540
   hoverSortingOrder: 51
 --- !u!114 &867956571
 MonoBehaviour:
@@ -5193,7 +5193,7 @@ MonoBehaviour:
   ingredientData: {fileID: 11400000, guid: 03919420b3473c44a946e164fc72c26a, type: 2}
   pourAngle: 120
   pourStartAngle: 90
-  tiltSpeed: 300
+  tiltSpeed: 540
   hoverSortingOrder: 51
 --- !u!114 &1039108904
 MonoBehaviour:
@@ -5518,7 +5518,7 @@ MonoBehaviour:
   ingredientData: {fileID: 11400000, guid: 71eeaad20cd4d794c931dbeece294d31, type: 2}
   pourAngle: 120
   pourStartAngle: 90
-  tiltSpeed: 300
+  tiltSpeed: 540
   hoverSortingOrder: 51
 --- !u!114 &1085386919
 MonoBehaviour:
@@ -5765,7 +5765,7 @@ MonoBehaviour:
   ingredientData: {fileID: 11400000, guid: c6786100d2aada24bb8bfb0e8c4a6d3b, type: 2}
   pourAngle: 120
   pourStartAngle: 90
-  tiltSpeed: 300
+  tiltSpeed: 540
   hoverSortingOrder: 51
 --- !u!114 &1226956987
 MonoBehaviour:
@@ -6150,7 +6150,7 @@ MonoBehaviour:
   ingredientData: {fileID: 11400000, guid: 30a3a8e2dc720114c8bfa54182fd7aae, type: 2}
   pourAngle: 120
   pourStartAngle: 90
-  tiltSpeed: 300
+  tiltSpeed: 540
   hoverSortingOrder: 51
 --- !u!114 &1276447202
 MonoBehaviour:
@@ -6657,7 +6657,7 @@ MonoBehaviour:
   ingredientData: {fileID: 11400000, guid: 7d709e871550fd04e9f048b8cf3aa462, type: 2}
   pourAngle: 120
   pourStartAngle: 90
-  tiltSpeed: 300
+  tiltSpeed: 540
   hoverSortingOrder: 51
 --- !u!114 &1457112144
 MonoBehaviour:
@@ -6904,7 +6904,7 @@ MonoBehaviour:
   ingredientData: {fileID: 11400000, guid: 4aecd6b344ddeec42b6144904bac4c0b, type: 2}
   pourAngle: 120
   pourStartAngle: 90
-  tiltSpeed: 300
+  tiltSpeed: 540
   hoverSortingOrder: 51
 --- !u!114 &1457416437
 MonoBehaviour:
@@ -7290,7 +7290,7 @@ MonoBehaviour:
   ingredientData: {fileID: 11400000, guid: a58d0067d0fea884a8665d3adaa7a661, type: 2}
   pourAngle: 120
   pourStartAngle: 90
-  tiltSpeed: 300
+  tiltSpeed: 540
   hoverSortingOrder: 51
 --- !u!114 &1564758325
 MonoBehaviour:
@@ -7731,7 +7731,7 @@ MonoBehaviour:
   ingredientData: {fileID: 11400000, guid: 310bcb5ed518240439b74783c93ea520, type: 2}
   pourAngle: 120
   pourStartAngle: 90
-  tiltSpeed: 300
+  tiltSpeed: 540
   hoverSortingOrder: 51
 --- !u!114 &1762846327
 MonoBehaviour:
@@ -8087,7 +8087,7 @@ MonoBehaviour:
   ingredientData: {fileID: 11400000, guid: 8c96468038d4d0f4a8af2396b5ac42a3, type: 2}
   pourAngle: 120
   pourStartAngle: 90
-  tiltSpeed: 300
+  tiltSpeed: 540
   hoverSortingOrder: 51
 --- !u!114 &1831492569
 MonoBehaviour:
@@ -8334,7 +8334,7 @@ MonoBehaviour:
   ingredientData: {fileID: 11400000, guid: c6528feb9c6fc984a84eb0e4e70c1756, type: 2}
   pourAngle: 120
   pourStartAngle: 90
-  tiltSpeed: 300
+  tiltSpeed: 540
   hoverSortingOrder: 51
 --- !u!114 &1859341589
 MonoBehaviour:
@@ -8720,7 +8720,7 @@ MonoBehaviour:
   ingredientData: {fileID: 11400000, guid: c2f718707fbfa8340901d31b5c1fb4f3, type: 2}
   pourAngle: 120
   pourStartAngle: 90
-  tiltSpeed: 300
+  tiltSpeed: 540
   hoverSortingOrder: 51
 --- !u!114 &1917662546
 MonoBehaviour:
@@ -8967,7 +8967,7 @@ MonoBehaviour:
   ingredientData: {fileID: 11400000, guid: 2e0cf2ec87a9d604d85a679dfe62ce25, type: 2}
   pourAngle: 120
   pourStartAngle: 90
-  tiltSpeed: 300
+  tiltSpeed: 540
   hoverSortingOrder: 51
 --- !u!114 &1937057039
 MonoBehaviour:
@@ -9214,7 +9214,7 @@ MonoBehaviour:
   ingredientData: {fileID: 11400000, guid: d01bdaee52253cb438ab240831d5f581, type: 2}
   pourAngle: 120
   pourStartAngle: 90
-  tiltSpeed: 300
+  tiltSpeed: 540
   hoverSortingOrder: 51
 --- !u!114 &1993789255
 MonoBehaviour:
@@ -9621,7 +9621,7 @@ MonoBehaviour:
   ingredientData: {fileID: 11400000, guid: 3cec783819aafb046bc3afa5326ebf80, type: 2}
   pourAngle: 120
   pourStartAngle: 90
-  tiltSpeed: 300
+  tiltSpeed: 540
   hoverSortingOrder: 51
 --- !u!114 &2081498170
 MonoBehaviour:

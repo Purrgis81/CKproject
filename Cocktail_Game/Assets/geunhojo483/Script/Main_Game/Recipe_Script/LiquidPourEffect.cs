@@ -165,8 +165,18 @@ public class LiquidPourEffect : MonoBehaviour
         }
 
         CircleCollider2D col = particleObj.AddComponent<CircleCollider2D>();
-        col.isTrigger = true;
+        col.isTrigger = false;   // 솔리드: 일반 콜라이더에 부딪히면 튕길 수 있게
         col.radius = 0.5f;
+
+        // 방울끼리는 서로 충돌하지 않게 (물줄기가 흩어지는 것 방지)
+        int liquidLayer = LayerMask.NameToLayer("Liquid");
+        if (liquidLayer >= 0) Physics2D.IgnoreLayerCollision(liquidLayer, liquidLayer, true);
+
+        // 자기를 만든 병(쉐이커)의 콜라이더와는 충돌 무시 (입구에서 막히는 것 방지)
+        foreach (Collider2D myCol in GetComponentsInChildren<Collider2D>())
+        {
+            if (myCol != null) Physics2D.IgnoreCollision(col, myCol, true);
+        }
 
         Rigidbody2D particleRb = particleObj.AddComponent<Rigidbody2D>();
         particleRb.bodyType = RigidbodyType2D.Dynamic;
