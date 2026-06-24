@@ -177,6 +177,8 @@ public class LiquidPourEffect : MonoBehaviour
         {
             if (myCol != null) Physics2D.IgnoreCollision(col, myCol, true);
         }
+        // ※ 특정 레이어 전체를 통과시키고 싶으면: Project Settings > Physics 2D >
+        //    Layer Collision Matrix 에서 Liquid × 해당 레이어 체크 해제 (코드 불필요)
 
         Rigidbody2D particleRb = particleObj.AddComponent<Rigidbody2D>();
         particleRb.bodyType = RigidbodyType2D.Dynamic;

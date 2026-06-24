@@ -106,7 +106,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 6_2png_0
+      name: Timer_Bar
       rect:
         serializedVersion: 2
         x: 1
@@ -128,7 +128,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 6_2png_1
+      name: Score_Bar
       rect:
         serializedVersion: 2
         x: 1
@@ -150,7 +150,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 6_2png_2
+      name: Recipe_Book
       rect:
         serializedVersion: 2
         x: 275
@@ -185,9 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      6_2png_0: -1891417820726054662
-      6_2png_1: -5990043794234794507
-      6_2png_2: -2635715308541083517
+      Recipe_Book: -2635715308541083517
+      Score_Bar: -5990043794234794507
+      Timer_Bar: -1891417820726054662
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
